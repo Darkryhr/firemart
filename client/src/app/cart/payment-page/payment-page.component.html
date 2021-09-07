@@ -1,0 +1,47 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <mat-select formControlName="city">
+        <mat-option *ngFor="let cityName of cities" [value]="cityName">
+          {{ cityName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Street</mat-label>
+      <input matInput formControlName="street" autocomplete="off" />
+      <mat-error *ngIf="street.invalid && street.dirty">
+        Street must be at least 6 characters long
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Delivery Date</mat-label>
+      <input
+        matInput
+        formControlName="delivery"
+        type="date"
+        autocomplete="off"
+        min="{{ today | date: 'yyyy-MM-dd' }}"
+      />
+      <mat-error *ngIf="delivery.invalid && delivery.dirty">
+        You must enter a valid date
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Credit Card</mat-label>
+      <input matInput formControlName="credit" autocomplete="off" />
+      <mat-error *ngIf="credit.invalid && credit.dirty">
+        You must enter a valid credit card number
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="onSubmit()"
+      [disabled]="form.invalid"
+    >
+      Submit
+    </button>
+  </form>
+</mat-card>
