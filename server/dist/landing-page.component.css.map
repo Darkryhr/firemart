@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "../client/src/app/landing-page/landing-page.component.scss"
-    ],
-    "names": [],
-    "file": "landing-page.component.css"
-}

@@ -4,11 +4,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PaymentPageComponent } from './cart/payment-page/payment-page.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'products', component: ProductPageComponent },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('./products/products.module').then((m) => m.ProductsModule),
+    canActivate: [AuthGuard],
+  },
   { path: 'test', component: PaymentPageComponent },
 ];
 

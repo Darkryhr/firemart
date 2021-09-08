@@ -1,29 +1,21 @@
 <mat-card>
+  <div *ngIf="isSignup">
+    <h3>Create Account</h3>
+
+    <button mat-stroked-button (click)="changeType('login')">
+      Returning user?
+    </button>
+  </div>
+
+  <div *ngIf="isLogin">
+    <h3>Sign In</h3>
+    <button size="small" mat-stroked-button (click)="changeType('signup')">
+      New user?
+    </button>
+  </div>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
-      <div *ngIf="isSignup">
-        <h3>Create Account</h3>
-
-        <button mat-stroked-button (click)="changeType('login')">
-          Returning user?
-        </button>
-      </div>
-
-      <div *ngIf="isLogin">
-        <h3>Sign In</h3>
-        <button size="small" mat-stroked-button (click)="changeType('signup')">
-          New user?
-        </button>
-      </div>
-
-      <div *ngIf="isPasswordReset">
-        <h3>Reset Password</h3>
-        <button size="small" mat-button (click)="changeType('login')">
-          Back
-        </button>
-      </div>
-
-      <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
+      <form [formGroup]="firstFormGroup" (ngSubmit)="form1()" #formone="ngForm">
         <mat-form-field [color]="email.valid && 'accent'">
           <input
             matInput
@@ -66,32 +58,11 @@
             placeholder="Confirm password"
             autocomplete="off"
           />
-
           <mat-error *ngIf="passwordConfirm.dirty && !passwordDoesMatch">
             Password does not match
           </mat-error>
         </mat-form-field>
-
         <mat-error class="server-error">{{ serverMessage }}</mat-error>
-
-        <button
-          *ngIf="isPasswordReset"
-          mat-stroked-button
-          type="submit"
-          [disabled]="loading"
-        >
-          Send Reset Email
-        </button>
-
-        <!-- <button
-          *ngIf="!isPasswordReset"
-          mat-raised-button
-          color="accent"
-          type="submit"
-          [disabled]="firstFormGroup.invalid || !passwordDoesMatch || loading"
-        >
-          Submit
-        </button> -->
         <button
           *ngIf="!isPasswordReset"
           mat-raised-button
@@ -103,17 +74,13 @@
         </button>
         <!-- <button mat-raised-button matStepperNext>Next</button> -->
       </form>
-
-      <button
-        mat-button
-        *ngIf="isLogin && !isPasswordReset"
-        (click)="changeType('reset')"
-      >
-        Forgot password?
-      </button>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="secondFormGroup" *ngIf="isSignup">
+      <form
+        [formGroup]="secondFormGroup"
+        #formtwo="ngForm"
+        (ngSubmit)="form2()"
+      >
         <ng-template matStepLabel>Location</ng-template>
         <mat-form-field>
           <mat-label>Full Name</mat-label>
@@ -172,7 +139,16 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button mat-button (click)="onSubmit()">Submit</button>
+        <button
+          *ngIf="type === 'signup'"
+          mat-button
+          (click)="stepper.reset(); onRegister()"
+        >
+          Submit
+        </button>
+        <button *ngIf="type === 'login'" mat-button (click)="onLogin()">
+          Submit
+        </button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

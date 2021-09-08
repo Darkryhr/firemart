@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const userRouter = require('./routes/userRoutes');
-const productRouter = require('./routes/productRoute');
 
 dotenv.config({ path: './config.env' });
 
@@ -21,17 +21,14 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 );
 
-app.use('/users', userRouter);
-app.use('/products', productRouter);
+app.use(cors());
 
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connection successful!'));
+app.use('/users', userRouter);
+app.use('/products', (req, res, next) => {
+  res.json({ message: 'success' });
+});
+
+mongoose.connect(DB).then(() => console.log('DB connection successful!'));
 
 const port = process.env.PORT || 3000;
 
