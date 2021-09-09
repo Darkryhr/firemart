@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
   HttpClient,
@@ -18,7 +18,14 @@ export class AuthService {
 
   currentUser = {};
 
-  constructor(private http: HttpClient, public router: Router) {}
+  myData$: Observable<boolean>;
+
+  private dataSubject: Subject<boolean>;
+
+  constructor(private http: HttpClient, public router: Router) {
+    this.dataSubject = new Subject<boolean>();
+    this.myData$ = this.dataSubject.asObservable();
+  }
 
   // Sign-up
   signUp(user): Observable<any> {
@@ -34,6 +41,7 @@ export class AuthService {
         localStorage.setItem('token', res.token);
         this.getUserProfile(res.id).subscribe((res) => {
           this.currentUser = res.data.user;
+          this.dataSubject.next(true);
           this.router.navigate(['products']);
         });
       });
@@ -52,7 +60,8 @@ export class AuthService {
   doLogout() {
     let removeToken = localStorage.removeItem('token');
     if (removeToken == null) {
-      this.router.navigate(['login']);
+      this.dataSubject.next(false);
+      this.router.navigate(['/']);
     }
   }
 

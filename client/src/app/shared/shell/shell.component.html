@@ -37,7 +37,8 @@
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
         <a mat-button routerLink="/products">🛍️ Products</a>
-        <a mat-button routerLink="/login">🔑 Login</a>
+        <a mat-button routerLink="/login" *ngIf="!user">🔑 Login</a>
+        <a mat-button *ngIf="user" (click)="logout()">🔑 Logout</a>
       </div>
 
       <!-- DROPDOWN MENU -->

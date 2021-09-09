@@ -1,0 +1,167 @@
+[
+  {
+    "name": "chicken",
+    "category": "meat",
+    "price": 29.9
+  },
+  {
+    "name": "ground beef",
+    "category": "meat",
+    "price": 39.9
+  },
+  {
+    "name": "milk",
+    "category": "dairy",
+    "price": 5.9
+  },
+  {
+    "name": "cheese",
+    "category": "dairy",
+    "price": 4.9
+  },
+  {
+    "name": "white bread",
+    "category": "breads",
+    "price": 5.9
+  },
+  {
+    "name": "red wine",
+    "category": "alcohol",
+    "price": 35.9
+  },
+  {
+    "name": "white wine",
+    "category": "alcohol",
+    "price": 29.9
+  },
+  {
+    "name": "lager beer",
+    "category": "alcohol",
+    "price": 7.9
+  },
+  {
+    "name": "water",
+    "category": "soft drinks",
+    "price": 3.9
+  },
+  {
+    "name": "corn",
+    "category": "canned goods",
+    "price": 4.9
+  },
+  {
+    "name": "peas",
+    "category": "canned goods",
+    "price": 4.9
+  },
+  {
+    "name": "potatoes",
+    "category": "fruits & vegetables",
+    "price": 3.9
+  },
+  {
+    "name": "carrots",
+    "category": "fruits & vegetables",
+    "price": 3.9
+  },
+  {
+    "name": "cucumbers",
+    "category": "fruits & vegetables",
+    "price": 4.9
+  },
+  {
+    "name": "tomatoes",
+    "category": "fruits & vegetables",
+    "price": 4.9
+  },
+  {
+    "name": "instant coffee",
+    "category": "coffee & tea",
+    "price": 19.9
+  },
+  {
+    "name": "earl grey",
+    "category": "coffee & tea",
+    "price": 12.9
+  },
+  {
+    "name": "chocolate milk",
+    "category": "coffee & tea",
+    "price": 15.9
+  },
+  {
+    "name": "milk chocolate",
+    "category": "sweets",
+    "price": 5.9
+  },
+  {
+    "name": "dark chocolate",
+    "category": "sweets",
+    "price": 5.9
+  },
+  {
+    "name": "gummy bears",
+    "category": "sweets",
+    "price": 4.9
+  },
+  {
+    "name": "toilet paper",
+    "category": "personal care",
+    "price": 36.9
+  },
+  {
+    "name": "wet wipes",
+    "category": "personal care",
+    "price": 9.9
+  },
+  {
+    "name": "cleaning spray",
+    "category": "personal care",
+    "price": 11.9
+  },
+  {
+    "name": "laundry detergent",
+    "category": "laundry",
+    "price": 29.9
+  },
+  {
+    "name": "fabric softener",
+    "category": "laundry",
+    "price": 12.9
+  },
+  {
+    "name": "chips",
+    "category": "snacks",
+    "price": 3.9
+  },
+  {
+    "name": "cheetos",
+    "category": "snacks",
+    "price": 3.9
+  },
+  {
+    "name": "doritos",
+    "category": "snacks",
+    "price": 3.9
+  },
+  {
+    "name": "ketchup",
+    "category": "sauces & condiments",
+    "price": 9.9
+  },
+  {
+    "name": "mayonnaise",
+    "category": "sauces & condiments",
+    "price": 8.9
+  },
+  {
+    "name": "mustard",
+    "category": "sauces & condiments",
+    "price": 13.9
+  },
+  {
+    "name": "soy sauce",
+    "category": "sauces & condiments",
+    "price": 10.9
+  }
+]
