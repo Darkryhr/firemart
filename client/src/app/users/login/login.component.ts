@@ -74,8 +74,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // get userDetails(){
+  //   return this.authService.getUserProfile()
+  // }
+
   async onRegister() {
-    console.log(this.loginForm);
     this.authService.signUp(this.loginForm).subscribe((res) => {
       this.firstFormGroup.reset();
       this.type = 'login';
@@ -83,12 +86,12 @@ export class LoginComponent implements OnInit {
   }
 
   form1() {
-    console.log(this.firstFormGroup.value);
+    // console.log(this.firstFormGroup.value);
     this.loginForm = this.firstFormGroup.value;
   }
 
   form2() {
-    console.log(this.secondFormGroup.value);
+    // console.log(this.secondFormGroup.value);
   }
 
   onLogin() {

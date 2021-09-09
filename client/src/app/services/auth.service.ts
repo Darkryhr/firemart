@@ -33,7 +33,7 @@ export class AuthService {
       .subscribe((res: any) => {
         localStorage.setItem('token', res.token);
         this.getUserProfile(res.id).subscribe((res) => {
-          this.currentUser = res;
+          this.currentUser = res.data.user;
           this.router.navigate(['products']);
         });
       });

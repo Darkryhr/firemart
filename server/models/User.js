@@ -41,7 +41,6 @@ userSchema.methods.correctPassword = async function (
   // can't access this.password, because of select:false
   userPassword
 ) {
-  console.log(candidatePassword, userPassword);
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 

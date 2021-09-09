@@ -1,5 +1,6 @@
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-product-page',
@@ -9,13 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class ProductPageComponent implements OnInit {
   showFiller = false;
   value = 'Search for Product';
+  user = {};
 
   products = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    // this.productService.getProducts().subscribe((res) => (this.products = res));
+    this.user = this.authService.currentUser;
   }
 
   get productCategories() {

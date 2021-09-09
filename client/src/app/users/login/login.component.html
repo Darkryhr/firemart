@@ -64,7 +64,7 @@
         </mat-form-field>
         <mat-error class="server-error">{{ serverMessage }}</mat-error>
         <button
-          *ngIf="!isPasswordReset"
+          *ngIf="isSignup"
           mat-raised-button
           color="accent"
           matStepperNext
@@ -72,7 +72,15 @@
         >
           Next
         </button>
-        <!-- <button mat-raised-button matStepperNext>Next</button> -->
+        <button
+          *ngIf="isLogin"
+          mat-raised-button
+          color="accent"
+          [disabled]="firstFormGroup.invalid"
+          (click)="onLogin()"
+        >
+          Login
+        </button>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" *ngIf="isSignup">
@@ -81,7 +89,7 @@
         #formtwo="ngForm"
         (ngSubmit)="form2()"
       >
-        <ng-template matStepLabel>Location</ng-template>
+        <!-- <ng-template matStepLabel>Location</ng-template> -->
         <mat-form-field>
           <mat-label>Full Name</mat-label>
           <input
@@ -114,25 +122,25 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
+      <!-- <ng-template matStepLabel>Done</ng-template> -->
       <p>You are now done.</p>
 
       <mat-list>
         <mat-list-item>
-          <strong>Name:</strong>
-          {{ this.firstFormGroup.value.name }}</mat-list-item
+          <strong>Name: </strong>
+          {{ this.secondFormGroup.value.name }}</mat-list-item
         >
         <mat-list-item>
-          <strong>Description:</strong>
-          {{ this.firstFormGroup.value.description }}</mat-list-item
+          <strong>E-mail: </strong>
+          {{ this.firstFormGroup.value.email }}</mat-list-item
         >
         <mat-list-item>
-          <strong>Amount:</strong>
-          {{ this.secondFormGroup.value.amount }}</mat-list-item
+          <strong>City: </strong>
+          {{ this.secondFormGroup.value.city }}</mat-list-item
         >
         <mat-list-item>
-          <strong>Stock:</strong>
-          {{ this.secondFormGroup.value.stock }}</mat-list-item
+          <strong>Street: </strong>
+          {{ this.secondFormGroup.value.street }}</mat-list-item
         >
       </mat-list>
 
@@ -146,10 +154,13 @@
         >
           Submit
         </button>
-        <button *ngIf="type === 'login'" mat-button (click)="onLogin()">
-          Submit
-        </button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
+  <!-- <div *ngIf="afAuth.authState | async as user">
+    <p>
+      Logged in as <strong>{{ user.name }}</strong>
+    </p>
+    <button mat-stroked-button (click)="afAuth.signOut()">Logout</button>
+  </div> -->
 </mat-card>

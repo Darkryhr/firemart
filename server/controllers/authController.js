@@ -52,7 +52,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-  console.log('TOKEN: ' + req.headers.authorization);
   if (!token) return next(new AppError('You are not  logged in', 401));
   // verify token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
