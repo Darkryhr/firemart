@@ -16,16 +16,16 @@ export class ThemeService {
     this.renderer.addClass(document.body, this.colorTheme);
   }
 
-  update(theme: 'dark-mode' | 'light-mode') {
+  update(theme: 'dark_mode' | 'light_mode') {
     this.setColorTheme(theme);
     const previousColorTheme =
-      theme === 'dark-mode' ? 'light-mode' : 'dark-mode';
+      theme === 'dark_mode' ? 'light_mode' : 'dark_mode';
     this.renderer.removeClass(document.body, previousColorTheme);
     this.renderer.addClass(document.body, theme);
   }
 
   isDarkMode() {
-    return this.colorTheme === 'dark-mode';
+    return this.colorTheme === 'dark_mode';
   }
 
   private setColorTheme(theme) {
@@ -37,7 +37,7 @@ export class ThemeService {
     if (localStorage.getItem('user-theme')) {
       this.colorTheme = localStorage.getItem('user-theme');
     } else {
-      this.colorTheme = 'light-mode';
+      this.colorTheme = 'light_mode';
     }
   }
 }

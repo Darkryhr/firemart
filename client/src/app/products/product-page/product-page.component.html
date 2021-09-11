@@ -1,27 +1,29 @@
+<!-- put this button in shell -->
+<button type="button" mat-button (click)="drawer.toggle()">
+  Toggle sidenav
+</button>
+<!-- <mat-form-field>
+  <input matInput type="text" [(ngModel)]="value" />
+  <button
+    *ngIf="value"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="value = ''"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field> -->
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <h1>Your Cart.</h1>
     <app-order></app-order>
   </mat-drawer>
+
   <!-- 
   <p>
     {{ products | json }}
   </p> -->
-  <button type="button" mat-button (click)="drawer.toggle()">
-    Toggle sidenav
-  </button>
-  <mat-form-field class="example-form-field" appearance="fill">
-    <input matInput type="text" [(ngModel)]="value" />
-    <button
-      *ngIf="value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="value = ''"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
 
   <mat-tab-group>
     <mat-tab

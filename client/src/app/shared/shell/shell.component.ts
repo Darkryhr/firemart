@@ -13,8 +13,9 @@ import { ThemeService } from 'src/app/services/theme.service';
 export class ShellComponent implements OnInit {
   user: boolean = false;
   token = null;
-  isDarkMode: boolean;
+  isDarkMode: boolean = false;
   showFiller = false;
+  themeState: string = 'dark_mode';
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset])
@@ -35,10 +36,11 @@ export class ShellComponent implements OnInit {
 
   toggleDarkMode() {
     this.isDarkMode = this.themeService.isDarkMode();
-
+    console.log(localStorage.getItem('user-theme'));
+    this.themeState = localStorage.getItem('user-theme');
     this.isDarkMode
-      ? this.themeService.update('light-mode')
-      : this.themeService.update('dark-mode');
+      ? this.themeService.update('light_mode')
+      : this.themeService.update('dark_mode');
   }
 
   logout() {
@@ -46,6 +48,8 @@ export class ShellComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.isDarkMode);
+
     this.token = this.authService.getToken();
     if (this.token) {
       this.user = true;

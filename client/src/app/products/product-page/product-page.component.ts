@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProductPageComponent implements OnInit {
   showFiller = false;
-  value = 'Search for Product';
+  value = 'Search';
   user = {};
 
   products = [];

@@ -91,11 +91,11 @@ $client-dark-theme: mat.define-dark-theme(
   )
 );
 
-.light-mode {
+.light_mode {
   @include mat.all-component-themes($client-light-theme);
 }
 
-.dark-mode {
+.dark_mode {
   @include mat.all-component-themes($client-dark-theme);
 }
 

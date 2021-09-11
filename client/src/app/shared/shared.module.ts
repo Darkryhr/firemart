@@ -19,6 +19,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const components = [ShellComponent];
 
@@ -43,6 +44,7 @@ const modules = [
   MatSelectModule,
   MatDialogModule,
   MatSlideToggleModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

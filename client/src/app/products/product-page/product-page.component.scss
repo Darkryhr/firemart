@@ -1,6 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 .example-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
@@ -14,16 +18,19 @@
   padding: 30px;
 }
 
-.example-form-field {
-  width: 200px;
+mat-form-field {
+  width: 100%;
 }
-
-div.mat-tab-label-content {
-  text-transform: capitalize !important;
-}
-
 .grid {
   display: grid;
   gap: 0;
   grid-template-columns: repeat(8, 1fr);
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0 !important;
 }
