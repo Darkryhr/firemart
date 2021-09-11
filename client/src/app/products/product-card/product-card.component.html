@@ -1,8 +1,10 @@
-<div class="card" (click)="addToCart($event)">
+<div class="card" (click)="openDialog()">
   <!-- replace with image tag later -->
   <div class="placeholder"></div>
   <div class="content">
+    <p class="topsub">{{ "some details | info" | titlecase }}</p>
     <h3>{{ product.name | titlecase }}</h3>
-    <p>{{ product.price | currency: "ILS" }}</p>
+    <div class="fill"></div>
+    <p class="price">{{ product.price | currency: "ILS" }}</p>
   </div>
 </div>

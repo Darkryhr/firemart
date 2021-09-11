@@ -17,6 +17,9 @@ import { ShellComponent } from './shell/shell.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 const components = [ShellComponent];
 
 const modules = [
@@ -38,6 +41,8 @@ const modules = [
   MatGridListModule,
   MatStepperModule,
   MatSelectModule,
+  MatDialogModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({

@@ -4,8 +4,8 @@
 }
 
 .card {
-  width: 180px;
-  height: 220px;
+  width: 200px;
+  height: 270px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -13,19 +13,22 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+  border: 1px solid rgb(238, 238, 238);
 }
 
 .placeholder {
-  width: 180px;
-  height: 140px;
-  background-color: lightgrey;
+  width: 200px;
+  height: 170px;
+  // background-color: rgb(235, 235, 235);
+  border: 1px solid rgb(0, 0, 0);
+
   position: absolute;
   top: 0;
 }
 
 .content {
   position: absolute;
-  height: 80px;
+  height: 100px;
   width: 100%;
   bottom: 0;
   display: flex;
@@ -34,10 +37,22 @@
   padding: 10px !important;
 }
 
-p {
-  opacity: 0.8;
+.price {
+  font-weight: bold;
+  color: rgb(102, 27, 27);
+}
+
+.topsub {
+  opacity: 0.6;
+  font-size: smaller;
+  font-weight: lighter;
 }
 
 h3 {
-  font-weight: 500;
+  font-weight: lighter;
+}
+
+.fill {
+  display: block;
+  padding-bottom: 10px;
 }

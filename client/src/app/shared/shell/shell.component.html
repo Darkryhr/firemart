@@ -9,7 +9,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/" (click)="drawer.close()">🏠 Home</a>
       <a mat-list-item routerLink="/login" (click)="drawer.close()">🔑 Login</a>
@@ -32,13 +32,14 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="logo" routerLink="/">FIREMART</span>
+      <span class="logo" routerLink="/"></span>
 
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
-        <a mat-button routerLink="/products">🛍️ Products</a>
-        <a mat-button routerLink="/login" *ngIf="!user">🔑 Login</a>
-        <a mat-button *ngIf="user" (click)="logout()">🔑 Logout</a>
+        <a mat-button routerLink="/products">Products</a>
+        <a mat-button routerLink="/login" *ngIf="!user">Login</a>
+        <a mat-button *ngIf="user" (click)="logout()">Logout</a>
+        <mat-slide-toggle (click)="toggleDarkMode()"></mat-slide-toggle>
       </div>
 
       <!-- DROPDOWN MENU -->

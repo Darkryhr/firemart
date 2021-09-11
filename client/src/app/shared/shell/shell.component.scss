@@ -2,8 +2,18 @@
   height: 100%;
 }
 
+mat-sidenav-content {
+  // overflow-y: hidden;
+}
+
 .logo {
-  font-size: 1.2em;
+  background-image: url("/assets/imgs/logo.svg");
+  // font-size: 1.2em;
+  width: 200px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   cursor: pointer;
   outline: none;
 }

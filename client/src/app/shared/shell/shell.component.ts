@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-shell',
@@ -12,6 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ShellComponent implements OnInit {
   user: boolean = false;
   token = null;
+  isDarkMode: boolean;
+  showFiller = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset])
@@ -22,14 +25,21 @@ export class ShellComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
+    private authService: AuthService,
+    private themeService: ThemeService
   ) {
     this.authService.myData$.subscribe((data) => (this.user = data));
+    this.themeService.initTheme();
+    this.isDarkMode = this.themeService.isDarkMode();
   }
 
-  // get isLoggedIn() {
-  //   return !!this.user;
-  // }
+  toggleDarkMode() {
+    this.isDarkMode = this.themeService.isDarkMode();
+
+    this.isDarkMode
+      ? this.themeService.update('light-mode')
+      : this.themeService.update('dark-mode');
+  }
 
   logout() {
     this.authService.doLogout();
