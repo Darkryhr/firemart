@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { OrderService } from 'src/app/services/order.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-product-card',
@@ -10,11 +11,14 @@ import { OrderService } from 'src/app/services/order.service';
 export class ProductCardComponent implements OnInit {
   @Input() product: Product;
 
-  constructor(private orderService: OrderService) {}
+  constructor(
+    private orderService: OrderService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {}
 
-  addToCart(id) {
-    // this.orderService.add(1, id);
+  addToCart(e) {
+    this.orderService.add(this.authService.currentUser._id, this.product._id);
   }
 }

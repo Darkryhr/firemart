@@ -21,3 +21,9 @@
 div.mat-tab-label-content {
   text-transform: capitalize !important;
 }
+
+.grid {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(5, 1fr);
+}

@@ -12,6 +12,7 @@ export class OrderService {
   constructor(private httpClient: HttpClient) {}
 
   add(userId, productId) {
+    console.log(userId, productId);
     // const res = this.httpClient.post(this.baseUrl.concat(`/${userId}`), {});
     //* emit success event if added to backend, informing order to update list
   }

@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const userRouter = require('./routes/userRoutes');
+const productRouter = require('./routes/productRoutes');
 
 dotenv.config({ path: './config.env' });
 
@@ -24,9 +25,7 @@ const DB = process.env.DATABASE.replace(
 app.use(cors());
 
 app.use('/users', userRouter);
-app.use('/products', (req, res, next) => {
-  res.json({ message: 'success' });
-});
+app.use('/products', productRouter);
 
 mongoose.connect(DB).then(() => console.log('DB connection successful!'));
 

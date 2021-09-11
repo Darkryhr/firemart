@@ -17,7 +17,6 @@ import { ShellComponent } from './shell/shell.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
-
 const components = [ShellComponent];
 
 const modules = [

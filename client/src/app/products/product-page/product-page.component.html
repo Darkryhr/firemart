@@ -29,24 +29,22 @@
       [label]="category | titlecase"
       [ngSwitch]="category"
     >
-      <div *ngSwitchCase="category">
-        <mat-grid-list cols="4">
-          <mat-grid-tile *ngFor="let product of products"
-            ><app-product-card
-              *ngIf="product.category === category"
-              [product]="product"
-            ></app-product-card
-          ></mat-grid-tile>
-        </mat-grid-list>
+      <div class="grid">
+        <div
+          class="cardholder"
+          *ngFor="let product of products | category: category"
+        >
+          <app-product-card [product]="product"></app-product-card>
+        </div>
       </div>
     </mat-tab>
   </mat-tab-group>
 </mat-drawer-container>
 
-<ng-template>
+<!-- <ng-template>
   <mat-grid-list cols="4">
     <mat-grid-tile *ngFor="let product of products"
       ><app-product-card [product]="product"></app-product-card
     ></mat-grid-tile>
   </mat-grid-list>
-</ng-template>
+</ng-template> -->

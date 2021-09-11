@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { SnackService } from 'src/app/services/snack.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  type: 'login' | 'signup' | 'reset' = 'signup';
+  type: 'login' | 'signup' = 'signup';
   loading = false;
 
   serverMessage: string;
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private snack: SnackService
   ) {}
 
   ngOnInit() {
@@ -33,7 +35,14 @@ export class LoginComponent implements OnInit {
     });
 
     this.secondFormGroup = this.fb.group({
-      name: ['', Validators.required],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z ]*$'),
+        ],
+      ],
       city: ['', Validators.required],
       street: ['', Validators.required],
     });
@@ -51,15 +60,14 @@ export class LoginComponent implements OnInit {
     return this.type === 'signup';
   }
 
-  get isPasswordReset() {
-    return this.type === 'reset';
-  }
-
   get email() {
     return this.firstFormGroup.get('email');
   }
   get password() {
     return this.firstFormGroup.get('password');
+  }
+  get name() {
+    return this.secondFormGroup.get('name');
   }
 
   get passwordConfirm() {
@@ -74,19 +82,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // get userDetails(){
-  //   return this.authService.getUserProfile()
-  // }
-
   async onRegister() {
     this.authService.signUp(this.loginForm).subscribe((res) => {
       this.firstFormGroup.reset();
       this.type = 'login';
+      this.snack.onRegister();
     });
   }
 
   form1() {
-    // console.log(this.firstFormGroup.value);
     this.loginForm = this.firstFormGroup.value;
   }
 
@@ -97,28 +101,4 @@ export class LoginComponent implements OnInit {
   onLogin() {
     this.authService.signIn(this.firstFormGroup.value);
   }
-
-  // async onSubmit() {
-  //   this.loading = true;
-
-  //   const email = this.email.value;
-  //   const password = this.password.value;
-
-  //   try {
-  //     if (this.isLogin) {
-  //       await this.afAuth.signInWithEmailAndPassword(email, password);
-  //     }
-  //     if (this.isSignup) {
-  //       await this.afAuth.createUserWithEmailAndPassword(email, password);
-  //     }
-  //     if (this.isPasswordReset) {
-  //       await this.afAuth.sendPasswordResetEmail(email);
-  //       this.serverMessage = 'Check your email';
-  //     }
-  //   } catch (err) {
-  //     this.serverMessage = err;
-  //   }
-
-  //   this.loading = false;
-  // }
 }

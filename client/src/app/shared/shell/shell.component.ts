@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -9,8 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss'],
 })
-export class ShellComponent {
+export class ShellComponent implements OnInit {
   user: boolean = false;
+  token = null;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset])
@@ -32,5 +33,12 @@ export class ShellComponent {
 
   logout() {
     this.authService.doLogout();
+  }
+
+  ngOnInit() {
+    this.token = this.authService.getToken();
+    if (this.token) {
+      this.user = true;
+    }
   }
 }

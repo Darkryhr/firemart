@@ -21,6 +21,9 @@ export class ProductPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.currentUser;
+    this.productService
+      .getProducts()
+      .subscribe((res) => (this.products = res.data.products));
   }
 
   get productCategories() {

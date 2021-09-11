@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, Subject } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class AuthService {
 
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  currentUser = {};
+  currentUser: User = {};
 
   myData$: Observable<boolean>;
 
@@ -39,9 +40,7 @@ export class AuthService {
       .post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
         localStorage.setItem('token', res.token);
-        this.getUserProfile(res.id).subscribe((res) => {
-          this.currentUser = res.data.user;
-          this.dataSubject.next(true);
+        this.getUserProfile().subscribe((res) => {
           this.router.navigate(['products']);
         });
       });
@@ -66,11 +65,15 @@ export class AuthService {
   }
 
   // User profile
-  getUserProfile(id): Observable<any> {
-    let api = `${this.endpoint}/profile/${id}`;
+  getUserProfile(): Observable<any> {
+    let api = `${this.endpoint}/profile/`;
     return this.http.get<any>(api, { headers: this.headers }).pipe(
-      map((res: Response) => {
+      map((res) => {
         return res || {};
+      }),
+      tap((res) => {
+        this.currentUser = res.data.user;
+        this.dataSubject.next(true);
       }),
       catchError(this.handleError)
     );

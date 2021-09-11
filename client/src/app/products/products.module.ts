@@ -7,9 +7,10 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { FormsModule } from '@angular/forms';
+import { CategoryPipe } from '../category.pipe';
 
 @NgModule({
-  declarations: [ProductCardComponent, ProductPageComponent],
+  declarations: [ProductCardComponent, ProductPageComponent, CategoryPipe],
   imports: [
     CommonModule,
     RouterModule,

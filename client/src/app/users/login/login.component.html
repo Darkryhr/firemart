@@ -30,10 +30,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field
-          [color]="email.valid && 'accent'"
-          *ngIf="!isPasswordReset"
-        >
+        <mat-form-field [color]="email.valid && 'accent'">
           <input
             matInput
             formControlName="password"
@@ -98,6 +95,7 @@
             formControlName="name"
             required
           />
+          <mat-error *ngIf="name.errors?.pattern"> Invalid Name </mat-error>
         </mat-form-field>
         <br />
         <mat-form-field>

@@ -3,8 +3,7 @@ const AppError = require('../utils/appError');
 const User = require('../models/User');
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  // get user data
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.user._id);
   res.status(200).json({
     status: 'success',
     data: {
