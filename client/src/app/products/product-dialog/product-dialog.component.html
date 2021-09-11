@@ -1,9 +1,15 @@
-<h2 mat-dialog-title>{{ data.product.name | titlecase }}</h2>
-<mat-dialog-content>
-  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum iste
-  asperiores aliquam. Ea, labore explicabo.
+<mat-dialog-content align="center">
+  <img [src]="'/assets/' + data.product.image" />
+
+  <h2 mat-dialog-title align="center">{{ data.product.name | titlecase }}</h2>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close="true">Buy</button>
-  <button mat-button mat-dialog-close="false">Close</button>
+  <app-increment-input
+    [value]="_value || 0"
+    [step]="_step"
+    [min]="_min"
+    [max]="_max"
+    [wrap]="_wrap"
+  ></app-increment-input>
+  <button mat-button mat-dialog-close="_value">Buy</button>
 </mat-dialog-actions>

@@ -24,7 +24,7 @@ mat-form-field {
 .grid {
   display: grid;
   gap: 0;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(16, 1fr);
 }
 
 ::ng-deep .mat-form-field-underline {

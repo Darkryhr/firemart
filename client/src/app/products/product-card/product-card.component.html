@@ -1,6 +1,8 @@
 <div class="card" (click)="openDialog()">
   <!-- replace with image tag later -->
   <div class="placeholder"></div>
+  <img [src]="'/assets/' + product.image" />
+
   <div class="content">
     <p class="topsub">{{ "some details | info" | titlecase }}</p>
     <h3>{{ product.name | titlecase }}</h3>

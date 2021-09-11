@@ -15,7 +15,7 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
     ProductCardComponent,
     ProductPageComponent,
     CategoryPipe,
-    ProductDialogComponent,
+    ProductDialogComponent, 
   ],
   entryComponents: [ProductDialogComponent],
   imports: [

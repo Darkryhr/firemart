@@ -19,7 +19,9 @@ export class ProductCardComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.product);
+  }
 
   // addToCart(e) {
   //   this.orderService.add(this.authService.currentUser._id, this.product._id);

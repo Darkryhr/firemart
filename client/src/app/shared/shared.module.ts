@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,8 +21,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { IncrementInputComponent } from './increment-input/increment-input.component';
 
-const components = [ShellComponent];
+const components = [ShellComponent, IncrementInputComponent];
 
 const modules = [
   CommonModule,
@@ -45,10 +47,11 @@ const modules = [
   MatDialogModule,
   MatSlideToggleModule,
   MatTooltipModule,
+  FormsModule,
 ];
 
 @NgModule({
-  declarations: [...components, ShellComponent],
+  declarations: [...components, ShellComponent, IncrementInputComponent],
   imports: [...modules],
   exports: [...components, ...modules],
 })
