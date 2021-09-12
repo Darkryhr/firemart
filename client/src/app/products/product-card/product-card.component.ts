@@ -35,7 +35,9 @@ export class ProductCardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((res) => {
       let amount = res._value;
-      this.orderService.add(this.product._id, amount, this.product.price);
+      if (amount) {
+        this.orderService.add(this.product._id, amount, this.product.price);
+      }
     });
   }
 }

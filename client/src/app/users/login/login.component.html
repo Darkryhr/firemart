@@ -98,9 +98,17 @@
           <mat-error *ngIf="name.errors?.pattern"> Invalid Name </mat-error>
         </mat-form-field>
         <br />
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>City</mat-label>
           <input matInput placeholder="City" formControlName="city" required />
+        </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngFor="let cityName of cities" [value]="cityName">
+              {{ cityName }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <br />
         <mat-form-field>

@@ -22,6 +22,10 @@ export class ProductService {
     return this.http.get(`http://localhost:3000/products/${id}`);
   }
 
+  getCategories() {
+    return this.http.get('http://localhost:3000/products/categories');
+  }
+
   addToCart() {}
 
   createNewCart() {}

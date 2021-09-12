@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   registerForm = {};
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  cities = ['Ashdod', 'Tel-Aviv'];
 
   type: 'login' | 'signup' = 'signup';
   loading = false;

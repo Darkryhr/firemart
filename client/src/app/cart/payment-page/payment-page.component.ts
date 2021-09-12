@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,10 +11,9 @@ export class PaymentPageComponent implements OnInit {
   form: FormGroup;
   cities = ['Ashdod', 'Tel-Aviv'];
   today: Date = new Date();
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
-    console.log(this.today);
     this.form = this.fb.group({
       city: ['', [Validators.required]],
       street: ['', [Validators.minLength(6), Validators.required]],

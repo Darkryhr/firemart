@@ -1,6 +1,7 @@
 import { OrderService } from 'src/app/services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { CartItem } from 'src/app/models/cartItem';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -9,7 +10,7 @@ import { CartItem } from 'src/app/models/cartItem';
 })
 export class OrderComponent implements OnInit {
   cartItems: CartItem[] = [];
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService, private router: Router) {
     this.orderService.cartUpdate$.subscribe((res) => {
       this.cartItems = [...this.cartItems, res.data.newItem];
     });
@@ -20,5 +21,9 @@ export class OrderComponent implements OnInit {
       console.log(res);
       this.cartItems = res.data.products;
     });
+  }
+
+  toPayment() {
+    this.router.navigate(['payment']);
   }
 }
