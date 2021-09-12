@@ -3,6 +3,7 @@ const User = require('../models/User');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { promisify } = require('util');
+const Cart = require('../models/Cart');
 
 const signToken = (id) =>
   jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -21,6 +22,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
     street,
   });
   // const token = signToken(newUser._id);
+  const newCart = await Cart.create({ customer: newUser._id });
   res.status(201).json({
     status: 'success',
     // token,

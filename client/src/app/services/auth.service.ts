@@ -31,11 +31,7 @@ export class AuthService {
   // Sign-up
   signUp(user): Observable<any> {
     let api = `${this.endpoint}/signup`;
-    return this.http.post(api, user).pipe(
-      catchError(this.handleError)
-      // create new cart
-      // tap()
-    );
+    return this.http.post(api, user).pipe(catchError(this.handleError));
   }
 
   // Sign-in

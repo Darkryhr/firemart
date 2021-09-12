@@ -10,10 +10,15 @@ import { CartItem } from 'src/app/models/cartItem';
 export class OrderComponent implements OnInit {
   cartItems: CartItem[] = [];
   constructor(private orderService: OrderService) {
-    this.orderService.cartUpdate$.subscribe((data) => {
-      console.log(data);
+    this.orderService.cartUpdate$.subscribe((res) => {
+      this.cartItems = [...this.cartItems, res.data.newItem];
     });
   }
-  // order will have an array of all products, on cartupdate, it will push or change a value in that array
-  ngOnInit(): void {}
+  // order will have an array of products, on cartupdate, it will push or change a value in that array
+  ngOnInit(): void {
+    this.orderService.getAllItems().subscribe((res: any) => {
+      console.log(res);
+      this.cartItems = res.data.products;
+    });
+  }
 }

@@ -7,6 +7,7 @@ const cors = require('cors');
 const userRouter = require('./routes/userRoutes');
 const productRouter = require('./routes/productRoutes');
 const galleryRouter = require('./routes/imgRoute');
+const orderRouter = require('./routes/orderRoutes');
 const cartRouter = require('./routes/cartRoutes');
 
 dotenv.config({ path: './config.env' });
@@ -29,6 +30,7 @@ app.use(cors());
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/cart', cartRouter);
+app.use('/order', orderRouter);
 
 mongoose.connect(DB).then(() => console.log('DB connection successful!'));
 

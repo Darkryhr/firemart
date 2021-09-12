@@ -2,7 +2,7 @@ import { Product } from './product';
 
 export interface CartItem {
   _id?: number;
-  product?: Product;
+  product?: string;
   amount?: number;
   price?: number;
 }

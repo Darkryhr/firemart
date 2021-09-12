@@ -18,6 +18,10 @@ export class ProductService {
     return this.http.get<productResponse>('http://localhost:3000/products');
   }
 
+  getProduct(id) {
+    return this.http.get(`http://localhost:3000/products/${id}`);
+  }
+
   addToCart() {}
 
   createNewCart() {}

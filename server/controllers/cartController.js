@@ -7,18 +7,19 @@ const Product = require('../models/Product');
 exports.addToCart = catchAsync(async (req, res, next) => {
   // req.user will hold user Id, use it to point to cart
   // find cart in Cart model by User.id
-  const cart = await Cart.find({ customer: req.user._id });
+  const cart = await Cart.find({ customer: req.user._id }).exec();
   // req should contain the whole product object
   //   create cart item and have it point at said cart
-  const { product, amount } = req.body;
+  const { amount, product, price } = req.body;
   // CartItem.exists(
   //   filter query that checks the product id and cart id, if true, then route to updateCart
   // )
+
   const newItem = await CartItem.create({
-    product: product._id,
+    product,
     amount: amount,
-    price: product.price,
-    cart: cart._id,
+    price: price,
+    cart: cart[0]._id,
   });
   res.status(200).json({
     message: 'success',

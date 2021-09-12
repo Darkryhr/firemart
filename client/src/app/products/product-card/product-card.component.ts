@@ -34,7 +34,8 @@ export class ProductCardComponent implements OnInit {
       minHeight: 450,
     });
     dialogRef.afterClosed().subscribe((res) => {
-      this.orderService.add(this.product, res._value);
+      let amount = res._value;
+      this.orderService.add(this.product._id, amount, this.product.price);
     });
   }
 }

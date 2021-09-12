@@ -1,8 +1,8 @@
 <ng-container>
-  Product Name
+  {{ productInfo?.name | titlecase }}
   <mat-action-list>
     <app-increment-input
-      [value]="_value"
+      [value]="cartItem.amount"
       [step]="_step"
       [min]="_min"
       [max]="_max"

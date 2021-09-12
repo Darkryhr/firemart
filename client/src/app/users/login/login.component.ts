@@ -12,6 +12,7 @@ import { SnackService } from 'src/app/services/snack.service';
 export class LoginComponent implements OnInit {
   isLinear = true;
   loginForm = {};
+  registerForm = {};
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
@@ -83,7 +84,8 @@ export class LoginComponent implements OnInit {
   }
 
   async onRegister() {
-    this.authService.signUp(this.loginForm).subscribe((res) => {
+    let customerDetails = { ...this.loginForm, ...this.registerForm };
+    this.authService.signUp(customerDetails).subscribe((res) => {
       this.firstFormGroup.reset();
       this.type = 'login';
       this.snack.onRegister();
@@ -95,7 +97,7 @@ export class LoginComponent implements OnInit {
   }
 
   form2() {
-    // console.log(this.secondFormGroup.value);
+    this.registerForm = this.secondFormGroup.value;
   }
 
   onLogin() {

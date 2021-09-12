@@ -9,6 +9,7 @@ import { Observable, throwError, Subject } from 'rxjs';
 })
 export class OrderService {
   baseUrl = 'http://localhost:3000/cart';
+  baseUrlOrder = 'http://localhost:3000/order';
   cartUpdate$: Observable<any>;
   private cartSubject: Subject<any>;
   @Output() status = new EventEmitter();
@@ -18,16 +19,21 @@ export class OrderService {
     this.cartUpdate$ = this.cartSubject.asObservable();
   }
 
-  add(product: Product, amount: number) {
+  add(product: string, amount: number, price: number) {
     return this.httpClient
       .post(`${this.baseUrl}/add`, {
         product,
         amount,
+        price,
       })
       .subscribe((res) => {
         this.cartSubject.next(res);
       });
     // const res = this.httpClient.post(this.baseUrl.concat(`/${userId}`), {});
     //* emit success event if added to backend, informing order to update list
+  }
+
+  getAllItems() {
+    return this.httpClient.get(this.baseUrlOrder);
   }
 }
