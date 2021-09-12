@@ -26,15 +26,16 @@
   </p> -->
 
   <mat-tab-group>
-    <mat-tab
-      *ngFor="let category of productCategories"
-      [label]="category | titlecase"
-      [ngSwitch]="category"
-    >
+    <mat-tab *ngFor="let category of categories" [ngSwitch]="category.name">
+      <ng-template mat-tab-label>
+        <img [src]="category.image" />
+        &nbsp;
+        {{ category.name | titlecase }}
+      </ng-template>
       <div class="grid">
         <div
           class="cardholder"
-          *ngFor="let product of products | category: category"
+          *ngFor="let product of products | category: category.name"
         >
           <app-product-card [product]="product"></app-product-card>
         </div>

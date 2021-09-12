@@ -1,24 +1,25 @@
-mat-grid-tile {
-  background: lightblue;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  height: 60vh;
 }
 
 .hero-img {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("/assets/imgs/banner.jpg");
   width: 100vw;
-  height: 90vh;
+  height: inherit;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+}
+
+.white {
+  color: white;
 }
 
 .hero-text {
@@ -31,7 +32,6 @@ mat-grid-tile {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white;
 }
 
 .hero-text > h1 {
@@ -46,4 +46,13 @@ mat-grid-tile {
 .hero-text > a {
   margin-top: 10px;
   text-align: center;
+}
+
+.example-card {
+  max-width: 300px;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
 }

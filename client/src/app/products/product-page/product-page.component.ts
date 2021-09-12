@@ -13,6 +13,7 @@ export class ProductPageComponent implements OnInit {
   user = {};
 
   products = [];
+  categories = [];
 
   constructor(
     private productService: ProductService,
@@ -24,7 +25,9 @@ export class ProductPageComponent implements OnInit {
     this.productService
       .getProducts()
       .subscribe((res) => (this.products = res.data.products));
-
+    this.productService.getCategories().subscribe((res: any) => {
+      this.categories = res.data.categories;
+    });
     // this.productService.createNewCart()
   }
 
