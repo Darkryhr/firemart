@@ -24,6 +24,6 @@ export class OrderComponent implements OnInit {
   }
 
   toPayment() {
-    this.router.navigate(['payment']);
+    this.router.navigate(['test']);
   }
 }
