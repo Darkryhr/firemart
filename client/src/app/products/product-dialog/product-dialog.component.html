@@ -1,15 +1,16 @@
 <mat-dialog-content align="center">
   <img [src]="'/assets/' + data.product.image" />
-
   <h2 mat-dialog-title align="center">{{ data.product.name | titlecase }}</h2>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <app-increment-input
-    [value]="_value || 0"
+    [value]="_value"
     [step]="_step"
     [min]="_min"
     [max]="_max"
     [wrap]="_wrap"
-  ></app-increment-input>
-  <button mat-button mat-dialog-close="_value">Buy</button>
+    #info
+  >
+  </app-increment-input>
+  <button mat-button [mat-dialog-close]="info">Submit</button>
 </mat-dialog-actions>

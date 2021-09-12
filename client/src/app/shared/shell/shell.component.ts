@@ -48,8 +48,6 @@ export class ShellComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.isDarkMode);
-
     this.token = this.authService.getToken();
     if (this.token) {
       this.user = true;

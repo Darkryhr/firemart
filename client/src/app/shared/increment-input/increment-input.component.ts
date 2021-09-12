@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class IncrementInputComponent {
   myFormGroup = new FormGroup({
-    formField: new FormControl(),
+    formField: new FormControl('', { updateOn: 'blur' }),
   });
 
   _value: number = 0;
@@ -17,6 +17,12 @@ export class IncrementInputComponent {
   _max: number = Infinity;
   _wrap: boolean = false;
   color: string = 'default';
+
+  @Output() newItemEvent = new EventEmitter();
+
+  addNewItem(value) {
+    this.newItemEvent.emit(value);
+  }
 
   @Input('value')
   set inputValue(_value: number) {

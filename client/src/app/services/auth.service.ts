@@ -31,7 +31,11 @@ export class AuthService {
   // Sign-up
   signUp(user): Observable<any> {
     let api = `${this.endpoint}/signup`;
-    return this.http.post(api, user).pipe(catchError(this.handleError));
+    return this.http.post(api, user).pipe(
+      catchError(this.handleError)
+      // create new cart
+      // tap()
+    );
   }
 
   // Sign-in
@@ -45,6 +49,11 @@ export class AuthService {
         });
       });
   }
+
+  // createNewCart(){
+  //   //* here because on signup an initial cart is made
+  //   return this.http.post(`${this.endpoint}/cart`,this.currentUser).subscribe((res:any)=>{})
+  // }
 
   getToken() {
     return localStorage.getItem('token');

@@ -1,4 +1,8 @@
-<mat-form-field [style.width.px]="80">
+<mat-form-field
+  [style.width.px]="80"
+  [style.padding.px]="0"
+  class="my-form-field"
+>
   <button
     mat-button
     mat-icon-button
@@ -12,10 +16,13 @@
   </button>
   <input
     matInput
+    name="_value"
     type="number"
     [(ngModel)]="_value"
     (focus)="setColor('primary')"
     (blur)="setColor('default')"
+    (change)="addNewItem(newItem.value)"
+    #newItem
   />
   <button
     mat-button

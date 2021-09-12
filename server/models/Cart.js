@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 
-const cartSchema = new mongoose.Schema({
-  customer: {
-    type: String,
-    required: true,
+const cartSchema = new mongoose.Schema(
+  {
+    customer: {
+      type: String,
+      required: true,
+    },
   },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-});
+  {
+    timestamps: {
+      createdAt: 'created_at',
+    },
+  }
+);
 
 const Cart = mongoose.model('Cart', cartSchema);
 

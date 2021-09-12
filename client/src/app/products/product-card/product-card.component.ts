@@ -19,9 +19,7 @@ export class ProductCardComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {
-    console.log(this.product);
-  }
+  ngOnInit() {}
 
   // addToCart(e) {
   //   this.orderService.add(this.authService.currentUser._id, this.product._id);
@@ -32,11 +30,11 @@ export class ProductCardComponent implements OnInit {
       data: {
         product: this.product,
       },
-      minWidth: 480,
-      minHeight: 480,
+      minWidth: 400,
+      minHeight: 450,
     });
     dialogRef.afterClosed().subscribe((res) => {
-      console.log('RESULT: ' + res);
+      this.orderService.add(this.product, res._value);
     });
   }
 }

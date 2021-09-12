@@ -24,6 +24,8 @@ export class ProductPageComponent implements OnInit {
     this.productService
       .getProducts()
       .subscribe((res) => (this.products = res.data.products));
+
+    // this.productService.createNewCart()
   }
 
   get productCategories() {

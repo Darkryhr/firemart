@@ -17,4 +17,8 @@ export class ProductService {
   getProducts() {
     return this.http.get<productResponse>('http://localhost:3000/products');
   }
+
+  addToCart() {}
+
+  createNewCart() {}
 }
