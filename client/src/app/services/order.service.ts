@@ -1,9 +1,14 @@
 import { Injectable, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter } from '@angular/core';
-import { Product } from '../models/product';
 import { Observable, throwError, Subject } from 'rxjs';
+import { CartItem } from '../models/cartItem';
 
+interface OrderResponse {
+  data: {
+    products: CartItem[];
+  };
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -34,6 +39,6 @@ export class OrderService {
   }
 
   getAllItems() {
-    return this.httpClient.get(this.baseUrlOrder);
+    return this.httpClient.get<OrderResponse>(this.baseUrlOrder);
   }
 }

@@ -1,1 +1,10 @@
-<mat-list></mat-list>
+<mat-card>
+  <mat-card-title> Order Summary: </mat-card-title>
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let item of itemInfo">
+      <mat-card-content>
+        {{ item.name | titlecase }}
+      </mat-card-content>
+    </mat-list-item>
+  </mat-list>
+</mat-card>

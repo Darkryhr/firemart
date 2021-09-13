@@ -18,7 +18,6 @@ export class OrderComponent implements OnInit {
   // order will have an array of products, on cartupdate, it will push or change a value in that array
   ngOnInit(): void {
     this.orderService.getAllItems().subscribe((res: any) => {
-      console.log(res);
       this.cartItems = res.data.products;
     });
   }
