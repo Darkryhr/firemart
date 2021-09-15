@@ -31,10 +31,21 @@ exports.addToCart = catchAsync(async (req, res, next) => {
 
 exports.createCart = catchAsync(async (req, res, next) => {
   //TODO: add conditional statement to check if cart exists
-  const cart = await Cart.create({
-    customer: req.user._id,
-  });
-  res.status(200).json({ message: 'success', data: { cart } });
+  const cart = await Cart.find({ customer: req.user._id });
+  if (cart.active === 'true') {
+    res.status(200).json({ message: 'success', data: { cart: cart } });
+  } else {
+    const newCart = await Cart.create({
+      customer: req.user._id,
+    });
+    if (!cart) {
+      res
+        .status(200)
+        .json({ message: 'success', data: { cart: newCart }, firstCart: true });
+    } else {
+      res.status(200).json({ message: 'success', data: { cart: newCart } });
+    }
+  }
 });
 
 exports.getCart = catchAsync(async (req, res, next) => {
@@ -43,3 +54,11 @@ exports.getCart = catchAsync(async (req, res, next) => {
 });
 
 exports.updateProduct = catchAsync(async (req, res, next) => {});
+
+exports.getCartSum = catchAsync(async (req, res, next) => {
+  const carts = await Cart.find();
+  res.status(201).json({
+    message: 'success',
+    data: carts.length,
+  });
+});

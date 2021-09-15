@@ -7,6 +7,7 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
   const products = await Product.find();
   res.status(201).json({
     status: 'success',
+    result: products.length,
     data: {
       products,
     },

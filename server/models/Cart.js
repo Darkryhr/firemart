@@ -11,6 +11,12 @@ const cartSchema = new mongoose.Schema(
     timestamps: {
       createdAt: 'created_at',
     },
+  },
+  {
+    active: {
+      type: Boolean,
+      default: true,
+    },
   }
 );
 

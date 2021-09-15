@@ -41,4 +41,8 @@ export class OrderService {
   getAllItems() {
     return this.httpClient.get<OrderResponse>(this.baseUrlOrder);
   }
+
+  getTotalCarts() {
+    return this.httpClient.get(`${this.baseUrl}/sum`);
+  }
 }

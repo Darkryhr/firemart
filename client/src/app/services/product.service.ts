@@ -4,6 +4,7 @@ import { Product } from '../models/product';
 
 interface productResponse {
   status: string;
+  result: number;
   data: {
     products: Product[];
   };
