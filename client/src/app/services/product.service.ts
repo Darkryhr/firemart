@@ -27,7 +27,7 @@ export class ProductService {
     return this.http.get('http://localhost:3000/products/categories');
   }
 
-  addToCart() {}
-
-  createNewCart() {}
+  updateProduct(id, body) {
+    return this.http.patch(`http://localhost:3000/products/${id}`, body);
+  }
 }

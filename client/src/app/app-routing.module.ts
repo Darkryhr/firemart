@@ -16,6 +16,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'test', component: PaymentPageComponent },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AdminModule),
+  },
 ];
 
 @NgModule({

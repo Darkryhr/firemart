@@ -1,0 +1,37 @@
+<mat-dialog-content align="center">
+  <h2 mat-dialog-title align="start">{{ data.row.name | titlecase }}</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" autocomplete="off" />
+      <mat-error *ngIf="name.errors?.required">
+        A product must have a name
+      </mat-error>
+      <mat-error *ngIf="name.errors?.pattern"> Not a valid name </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <!-- needs to be a select -->
+      <mat-label>Category</mat-label>
+      <input matInput formControlName="category" autocomplete="off" />
+      <mat-error *ngIf="category.errors?.pattern">
+        A product must be in a category
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" autocomplete="off" />
+      <mat-error *ngIf="price.errors?.pattern"> Not a valid number </mat-error>
+    </mat-form-field>
+
+    <mat-dialog-actions align="end">
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="form.invalid"
+        [mat-dialog-close]="form"
+      >
+        Submit
+      </button></mat-dialog-actions
+    >
+  </form>
+</mat-dialog-content>

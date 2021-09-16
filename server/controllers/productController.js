@@ -33,3 +33,31 @@ exports.getCategories = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.updateProduct = catchAsync(async (req, res, next) => {
+  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!product) {
+    return next(new AppError('No product found with that ID', 404));
+  }
+
+  res.status(200).json({
+    message: 'success',
+    data: {
+      product,
+    },
+  });
+});
+
+exports.createProduct = catchAsync(async (req, res, next) => {
+  const product = await Product.create(req.body);
+  res.status(201).json({
+    status: 'success',
+    data: {
+      product,
+    },
+  });
+});
