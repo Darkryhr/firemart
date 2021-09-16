@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-shipping-info',
@@ -11,7 +12,11 @@ export class ShippingInfoComponent implements OnInit {
   form: FormGroup;
   cities = ['Ashdod', 'Tel-Aviv'];
   today: Date = new Date();
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -43,6 +48,6 @@ export class ShippingInfoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    this.orderService.completeOrder();
   }
 }

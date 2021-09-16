@@ -36,7 +36,6 @@ export class ShellComponent implements OnInit {
 
   toggleDarkMode() {
     this.isDarkMode = this.themeService.isDarkMode();
-    console.log(localStorage.getItem('user-theme'));
     this.themeState = localStorage.getItem('user-theme');
     this.isDarkMode
       ? this.themeService.update('light_mode')

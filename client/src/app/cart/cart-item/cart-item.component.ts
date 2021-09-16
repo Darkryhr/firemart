@@ -23,7 +23,9 @@ export class CartItemComponent implements OnInit {
     this.productService
       .getProduct(this.cartItem.product)
       .subscribe((res: any) => {
-        this.productInfo = res.data.product;
+        if (res.data) {
+          this.productInfo = res.data.product;
+        }
       });
   }
 }

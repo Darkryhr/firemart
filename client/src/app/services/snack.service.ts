@@ -23,4 +23,10 @@ export class SnackService {
   onRegister() {
     this.snackBar.open('Thank You!', 'Login');
   }
+
+  onOrderComplete() {
+    this.snackBar.open('Your purchase has been completed successfully', 'Ok', {
+      duration: 5000,
+    });
+  }
 }

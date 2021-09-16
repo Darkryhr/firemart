@@ -6,17 +6,13 @@ const cartSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-  },
-  {
-    timestamps: {
-      createdAt: 'created_at',
-    },
-  },
-  {
     active: {
       type: Boolean,
       default: true,
     },
+  },
+  {
+    timestamps: { createdAt: 'created_at' },
   }
 );
 
