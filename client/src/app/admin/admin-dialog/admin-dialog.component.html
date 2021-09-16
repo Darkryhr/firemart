@@ -1,5 +1,6 @@
 <mat-dialog-content align="center">
   <h2 mat-dialog-title align="start">{{ data.row.name | titlecase }}</h2>
+  <h2 mat-dialog-title align="start" *ngIf="!data.row.name">New Product</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-label>Name</mat-label>
@@ -9,14 +10,26 @@
       </mat-error>
       <mat-error *ngIf="name.errors?.pattern"> Not a valid name </mat-error>
     </mat-form-field>
+
+    <!-- 
+
     <mat-form-field>
-      <!-- needs to be a select -->
       <mat-label>Category</mat-label>
       <input matInput formControlName="category" autocomplete="off" />
       <mat-error *ngIf="category.errors?.pattern">
         A product must be in a category
       </mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
     <mat-form-field>
       <mat-label>Price</mat-label>
       <input matInput formControlName="price" autocomplete="off" />

@@ -27,7 +27,11 @@ export class ProductService {
     return this.http.get('http://localhost:3000/products/categories');
   }
 
-  updateProduct(id, body) {
+  update(id, body) {
     return this.http.patch(`http://localhost:3000/products/${id}`, body);
+  }
+
+  create(body) {
+    return this.http.post(`http://localhost:3000/products`, body);
   }
 }

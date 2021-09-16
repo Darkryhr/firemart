@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-admin-dialog',
@@ -9,10 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AdminDialogComponent implements OnInit {
   form: FormGroup;
-
+  categories: any[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
@@ -27,7 +29,7 @@ export class AdminDialogComponent implements OnInit {
       ],
       category: [
         this.data.row.category,
-        [Validators.required, Validators.pattern('^[a-zA-Z ]*$')],
+        [Validators.required, Validators.pattern('^[a-zA-Z& ]*$')],
       ],
       price: [
         this.data.row.price,
@@ -36,6 +38,10 @@ export class AdminDialogComponent implements OnInit {
           Validators.pattern('^[+-]?([0-9]+.?[0-9]*|.[0-9]+)$'),
         ],
       ],
+    });
+
+    this.productService.getCategories().subscribe((res: any) => {
+      this.categories = res.data.categories;
     });
   }
 

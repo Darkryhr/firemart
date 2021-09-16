@@ -53,11 +53,30 @@ export class ProductTableComponent {
       if (res?.pristine || res?.untouched) {
         console.log('UNCHANGED');
       } else {
-        this.productService
-          .updateProduct(row._id, res.value)
-          .subscribe((res: any) => {
-            console.log(res);
-          });
+        this.productService.update(row._id, res.value).subscribe((res: any) => {
+          console.log(res);
+        });
+      }
+    });
+  }
+
+  createProduct() {
+    const row = { name: '', category: '', price: '' };
+    const dialogRef = this.dialog.open(AdminDialogComponent, {
+      data: {
+        row,
+      },
+      minWidth: 150,
+      maxWidth: 400,
+    });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res?.pristine || res?.untouched) {
+        console.log('UNCHANGED');
+      } else {
+        this.productService.create(res.value).subscribe((res: any) => {
+          console.log(res);
+        });
       }
     });
   }
