@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
+import { Observable, throwError, Subject } from 'rxjs';
 
 interface productResponse {
   status: string;
@@ -13,7 +14,13 @@ interface productResponse {
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  productUpdate$: Observable<any>;
+  private productSubject: Subject<any>;
+
+  constructor(private http: HttpClient) {
+    this.productSubject = new Subject<any>();
+    this.productUpdate$ = this.productSubject.asObservable();
+  }
 
   getProducts() {
     return this.http.get<productResponse>('http://localhost:3000/products');
@@ -28,7 +35,11 @@ export class ProductService {
   }
 
   update(id, body) {
-    return this.http.patch(`http://localhost:3000/products/${id}`, body);
+    return this.http
+      .patch(`http://localhost:3000/products/${id}`, body)
+      .subscribe((res: any) => {
+        this.productSubject.next(res);
+      });
   }
 
   create(body) {

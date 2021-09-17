@@ -12,7 +12,7 @@ import { AdminDialogComponent } from '../admin-dialog/admin-dialog.component';
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.scss'],
 })
-export class ProductTableComponent {
+export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'category', 'price'];
   dataSource: MatTableDataSource<Product>;
   products: Product[] = [];
@@ -53,9 +53,7 @@ export class ProductTableComponent {
       if (res?.pristine || res?.untouched) {
         console.log('UNCHANGED');
       } else {
-        this.productService.update(row._id, res.value).subscribe((res: any) => {
-          console.log(res);
-        });
+        this.productService.update(row._id, res.value);
       }
     });
   }
@@ -75,9 +73,20 @@ export class ProductTableComponent {
         console.log('UNCHANGED');
       } else {
         this.productService.create(res.value).subscribe((res: any) => {
-          console.log(res);
+          this.products = [...this.products, res.data.product];
+          this.dataSource.data = this.products;
         });
       }
+    });
+  }
+
+  ngOnInit() {
+    this.productService.productUpdate$.subscribe((res) => {
+      const newArr = this.products.filter(
+        (product) => product._id !== res.data.product._id
+      );
+      this.products = [...newArr, res.data.product];
+      this.dataSource.data = this.products;
     });
   }
 }
