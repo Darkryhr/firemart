@@ -31,6 +31,7 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   getProduct(id) {
+    console.log('CALL TO PRODUCT FROM ORDER SUMMARY: ' + id);
     return this.productService.getProduct(id);
   }
 }

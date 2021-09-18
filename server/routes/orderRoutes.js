@@ -8,6 +8,9 @@ router.route('/').post();
 router.route('/').get(authController.protect, orderController.getOrder);
 router
   .route('/finish')
-  .get(authController.protect, orderController.completeOrder);
+  .post(authController.protect, orderController.completeOrder);
 
+router
+  .route('/invoice/:id')
+  .get(authController.protect, orderController.getInvoice);
 module.exports = router;

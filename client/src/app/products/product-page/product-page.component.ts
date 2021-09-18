@@ -1,6 +1,7 @@
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { PrintService } from 'src/app/services/print.service';
 
 @Component({
   selector: 'app-product-page',
@@ -17,7 +18,8 @@ export class ProductPageComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private authService: AuthService
+    private authService: AuthService,
+    private printService: PrintService
   ) {}
 
   ngOnInit(): void {

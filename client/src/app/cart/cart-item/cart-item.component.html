@@ -2,7 +2,7 @@
   {{ productInfo?.name | titlecase }}
   <mat-action-list>
     <app-increment-input
-      [value]="cartItem.amount"
+      [value]="cartItem?.amount"
       [step]="_step"
       [min]="_min"
       [max]="_max"

@@ -56,20 +56,21 @@ export class OrderService {
     return this.httpClient.get(`${this.baseUrl}/sum`);
   }
 
-  completeOrder() {
+  completeOrder(body) {
     return this.httpClient
-      .get(`${this.baseUrlOrder}/finish`)
+      .post(`${this.baseUrlOrder}/finish`, body)
       .subscribe((res: any) => {
         if (res.message === 'success') {
-          // on success response, clear order
-          this.cartSubject.next([]);
-          // open thank you dialog or snackbar
+          this.clear();
           this.snack.onOrderComplete();
-          // send back to front page
           this.router.navigate(['products']);
         } else {
           // send error
         }
       });
+  }
+
+  getOrder(id) {
+    return this.httpClient.get(`${this.baseUrlOrder}/invoice/${id}`);
   }
 }

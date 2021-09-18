@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ThemeService } from 'src/app/services/theme.service';
+import { PrintService } from 'src/app/services/print.service';
 
 @Component({
   selector: 'app-shell',
@@ -27,7 +28,8 @@ export class ShellComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private printService: PrintService
   ) {
     this.authService.myData$.subscribe((data) => (this.user = data));
     this.themeService.initTheme();
@@ -51,5 +53,10 @@ export class ShellComponent implements OnInit {
     if (this.token) {
       this.user = true;
     }
+  }
+
+  getInvoice() {
+    let orderId = '6145a05fc1cb5bcd211561cd';
+    this.printService.printDocument('invoice', orderId);
   }
 }

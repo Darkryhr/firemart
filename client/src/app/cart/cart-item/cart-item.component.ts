@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
 import { CartItem } from 'src/app/models/cartItem';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -20,12 +26,14 @@ export class CartItemComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.productService
-      .getProduct(this.cartItem.product)
-      .subscribe((res: any) => {
-        if (res.data) {
-          this.productInfo = res.data.product;
-        }
-      });
+    if (this.cartItem) {
+      this.productService
+        .getProduct(this.cartItem?.product)
+        .subscribe((res: any) => {
+          if (res.data) {
+            this.productInfo = res.data.product;
+          }
+        });
+    }
   }
 }

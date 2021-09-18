@@ -11,8 +11,10 @@ import { UsersModule } from './users/users.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationInterceptor } from './services/auth.interceptor';
+import { PrintLayoutComponent } from './print/print-layout/print-layout.component';
+import { InvoiceComponent } from './print/invoice/invoice.component';
 @NgModule({
-  declarations: [AppComponent, HomePageComponent],
+  declarations: [AppComponent, HomePageComponent, PrintLayoutComponent, InvoiceComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
