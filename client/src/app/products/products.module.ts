@@ -9,13 +9,14 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { FormsModule } from '@angular/forms';
 import { CategoryPipe } from '../category.pipe';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
     ProductCardComponent,
     ProductPageComponent,
     CategoryPipe,
-    ProductDialogComponent, 
+    ProductDialogComponent,
   ],
   entryComponents: [ProductDialogComponent],
   imports: [
@@ -25,6 +26,7 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
     SharedModule,
     CartModule,
     FormsModule,
+    Ng2SearchPipeModule,
   ],
 })
 export class ProductsModule {}

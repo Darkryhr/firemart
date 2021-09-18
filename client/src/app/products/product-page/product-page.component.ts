@@ -12,14 +12,13 @@ export class ProductPageComponent implements OnInit {
   showFiller = false;
   value = 'Search';
   user = {};
-
+  searchText;
   products = [];
   categories = [];
 
   constructor(
     private productService: ProductService,
-    private authService: AuthService,
-    private printService: PrintService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -30,13 +29,5 @@ export class ProductPageComponent implements OnInit {
     this.productService.getCategories().subscribe((res: any) => {
       this.categories = res.data.categories;
     });
-    // this.productService.createNewCart()
-  }
-
-  get productCategories() {
-    const categorySet = [
-      ...new Set(this.products.map((product) => product.category)),
-    ];
-    return categorySet;
   }
 }
