@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
 import { Observable, throwError, Subject } from 'rxjs';
+import { FileInput } from 'ngx-material-file-input';
 
 interface productResponse {
   status: string;
@@ -43,6 +44,24 @@ export class ProductService {
   }
 
   create(body) {
-    return this.http.post(`http://localhost:3000/products`, body);
+    const { name, image, price, category } = body;
+    if (image) {
+      this.uploadFile(image.files[0]);
+    }
+    return this.http
+      .post(`http://localhost:3000/products`, {
+        name,
+        price,
+        category,
+      })
+      .subscribe();
+  }
+
+  uploadFile(image) {
+    const formData: FormData = new FormData();
+    formData.append('filekey', image, image.name);
+    return this.http
+      .post(`http://localhost:3000/products/gallery`, formData)
+      .subscribe();
   }
 }

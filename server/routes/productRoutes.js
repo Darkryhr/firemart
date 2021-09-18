@@ -10,4 +10,6 @@ router
   .get(productController.getProduct)
   .patch(productController.updateProduct);
 
+router.route('/gallery').post(productController.addProductImage);
+router.route('/').post(productController.createProduct);
 module.exports = router;

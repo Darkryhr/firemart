@@ -36,6 +36,16 @@
       <mat-error *ngIf="price.errors?.pattern"> Not a valid number </mat-error>
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Product Image</mat-label>
+      <ngx-mat-file-input
+        formControlName="image"
+        placeholder="Select Image"
+        valuePlaceholder="No image file selected"
+      ></ngx-mat-file-input>
+      <mat-icon matSuffix>folder</mat-icon>
+    </mat-form-field>
+
     <mat-dialog-actions align="end">
       <button
         mat-raised-button

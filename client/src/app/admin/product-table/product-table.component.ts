@@ -53,7 +53,9 @@ export class ProductTableComponent implements OnInit {
       if (res?.pristine || res?.untouched) {
         console.log('UNCHANGED');
       } else {
-        this.productService.update(row._id, res.value);
+        this.productService.create(res.value);
+
+        // this.productService.update(row._id, res?.value);
       }
     });
   }
@@ -72,10 +74,11 @@ export class ProductTableComponent implements OnInit {
       if (res?.pristine || res?.untouched) {
         console.log('UNCHANGED');
       } else {
-        this.productService.create(res.value).subscribe((res: any) => {
-          this.products = [...this.products, res.data.product];
-          this.dataSource.data = this.products;
-        });
+        this.productService.create(res.value);
+        // this.productService.create(res.value).subscribe((res: any) => {
+        //   this.products = [...this.products, res.data.product];
+        //   this.dataSource.data = this.products;
+        // });
       }
     });
   }

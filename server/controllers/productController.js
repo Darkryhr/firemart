@@ -2,6 +2,9 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const formidable = require('formidable');
+const path = require('path');
+const fs = require('fs');
 
 exports.getAllProducts = catchAsync(async (req, res, next) => {
   const products = await Product.find();
@@ -54,6 +57,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
 
 exports.createProduct = catchAsync(async (req, res, next) => {
   const product = await Product.create(req.body);
+
   res.status(201).json({
     status: 'success',
     data: {
@@ -61,3 +65,49 @@ exports.createProduct = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.addProductImage = catchAsync(async (req, res, next) => {
+  // basic setup
+  const form = formidable.IncomingForm();
+  const uploadFolder = path.join(__dirname, '../../', 'upload');
+
+  // basic config
+  form.maxFileSize = 50 * 1024 * 1024;
+  form.uploadDir = uploadFolder;
+
+  // parsing
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.log('Error parsing the files');
+      return res.status(400).json({
+        status: 'Fail',
+        message: 'There was an error parsing the files',
+        error: err,
+      });
+    }
+
+    const file = files.filekey;
+    const isValid = isFileValid(file);
+
+    //create valid name
+    const fileName = encodeURIComponent(file.name.replace(/\s/g, '-'));
+
+    if (!isValid) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'File not valid',
+      });
+    }
+
+    fs.renameSync(file.path, path.join(uploadFolder, fileName));
+  });
+});
+
+const isFileValid = (file) => {
+  const type = file.type.split('/').pop();
+  const validTypes = ['jpg', 'jpeg', 'png', 'pdf'];
+  if (validTypes.indexOf(type) === -1) {
+    return false;
+  }
+  return true;
+};

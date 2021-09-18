@@ -28,25 +28,8 @@ export class ImageService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  getGalleryById(id: string): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Gallery>(url).pipe(catchError(this.handleError));
-  }
-
-  addGallery(gallery: Gallery, file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('imageTitle', gallery.imageTitle);
-    formData.append('imageDesc', gallery.imageDesc);
-    const header = new HttpHeaders();
-    const params = new HttpParams();
-
-    const options = {
-      params,
-      reportProgress: true,
-      headers: header,
-    };
-    const req = new HttpRequest('POST', this.apiUrl, formData, options);
-    return this.http.request(req);
+  postImage(file) {
+    const formData: FormData = new FormData();
+    formData.append('filekey', file, file.name);
   }
 }

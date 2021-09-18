@@ -31,6 +31,7 @@ app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
+app.use('/gallery', galleryRouter);
 
 mongoose.connect(DB).then(() => console.log('DB connection successful!'));
 

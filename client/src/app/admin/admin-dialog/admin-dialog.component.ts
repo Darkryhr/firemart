@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
+import { ImageService } from 'src/app/services/image.service';
+import { FileValidator } from 'ngx-material-file-input';
 
 @Component({
   selector: 'app-admin-dialog',
@@ -11,6 +13,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class AdminDialogComponent implements OnInit {
   form: FormGroup;
   categories: any[] = [];
+  readonly maxSize = 104857600;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
@@ -38,6 +41,7 @@ export class AdminDialogComponent implements OnInit {
           Validators.pattern('^[+-]?([0-9]+.?[0-9]*|.[0-9]+)$'),
         ],
       ],
+      image: [null, [FileValidator.maxContentSize(this.maxSize)]],
     });
 
     this.productService.getCategories().subscribe((res: any) => {
@@ -62,7 +66,7 @@ export class AdminDialogComponent implements OnInit {
       //* do nothing, as admin has not changed any value
       return;
     } else {
-      console.log('MESSED ABOUT');
+      console.log(this.form.value);
     }
   }
 }

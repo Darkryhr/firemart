@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminDialogComponent } from './admin-dialog/admin-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [ProductTableComponent, AdminDialogComponent],
@@ -13,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AdminRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    MaterialFileInputModule,
   ],
 })
 export class AdminModule {}
