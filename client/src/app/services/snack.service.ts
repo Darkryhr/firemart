@@ -20,6 +20,12 @@ export class SnackService {
       .subscribe();
   }
 
+  adminError() {
+    this.snackBar.open("You're admin credentials are invalid", 'OK', {
+      duration: 5000,
+    });
+  }
+
   onRegister() {
     this.snackBar.open('Thank You!', 'Login');
   }

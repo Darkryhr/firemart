@@ -7,6 +7,7 @@ import { PaymentPageComponent } from './cart/payment-page/payment-page.component
 import { AuthGuard } from './guards/auth.guard';
 import { PrintLayoutComponent } from './print/print-layout/print-layout.component';
 import { InvoiceComponent } from './print/invoice/invoice.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
+    canActivate: [AdminGuard],
   },
   {
     path: 'print',

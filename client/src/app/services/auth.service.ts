@@ -41,7 +41,13 @@ export class AuthService {
       .subscribe((res: any) => {
         localStorage.setItem('token', res.token);
         this.getUserProfile().subscribe((res) => {
-          this.router.navigate(['products']);
+          if (res.data.user.role === 'user') {
+            localStorage.setItem('role', 'user');
+            this.router.navigate(['products']);
+          } else if (res.data.user.role === 'admin') {
+            localStorage.setItem('role', 'admin');
+            this.router.navigate(['admin']);
+          }
         });
       });
   }
@@ -60,9 +66,15 @@ export class AuthService {
     return authToken !== null ? true : false;
   }
 
+  getRole() {
+    let role = localStorage.getItem('role');
+    return role;
+  }
+
   // Logout
   doLogout() {
     let removeToken = localStorage.removeItem('token');
+    localStorage.removeItem('role');
     if (removeToken == null) {
       this.dataSubject.next(false);
       this.router.navigate(['/']);
