@@ -54,9 +54,4 @@ export class ShellComponent implements OnInit {
       this.user = true;
     }
   }
-
-  getInvoice() {
-    let orderId = '6145a05fc1cb5bcd211561cd';
-    this.printService.printDocument('invoice', orderId);
-  }
 }

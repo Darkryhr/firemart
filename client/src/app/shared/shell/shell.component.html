@@ -36,7 +36,7 @@
 
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
-        <button mat-button matTooltip="Cart" (click)="getInvoice()">
+        <button mat-button matTooltip="Cart">
           <mat-icon>shopping_cart</mat-icon>
         </button>
         <a mat-button routerLink="/products" matTooltip="Start Shopping"

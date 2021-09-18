@@ -35,12 +35,7 @@
         You must enter a valid credit card number
       </mat-error>
     </mat-form-field>
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="onSubmit()"
-      [disabled]="form.invalid"
-    >
+    <button mat-raised-button color="accent" [disabled]="form.invalid">
       Submit
     </button>
   </form>

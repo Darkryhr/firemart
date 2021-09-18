@@ -5,6 +5,8 @@ import { Observable, throwError, Subject } from 'rxjs';
 import { CartItem } from '../models/cartItem';
 import { Router } from '@angular/router';
 import { SnackService } from './snack.service';
+import { MatDialog } from '@angular/material/dialog';
+import { InvoiceDialogComponent } from 'src/app/print/invoice-dialog/invoice-dialog.component';
 
 interface OrderResponse {
   data: {
@@ -24,7 +26,8 @@ export class OrderService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private snack: SnackService
+    private snack: SnackService,
+    private dialog: MatDialog
   ) {
     this.cartSubject = new Subject<any>();
     this.cartUpdate$ = this.cartSubject.asObservable();
@@ -62,7 +65,7 @@ export class OrderService {
       .subscribe((res: any) => {
         if (res.message === 'success') {
           this.clear();
-          this.snack.onOrderComplete();
+          this.openInvoiceDialog(res.data.order._id);
           this.router.navigate(['products']);
         } else {
           // send error
@@ -72,5 +75,13 @@ export class OrderService {
 
   getOrder(id) {
     return this.httpClient.get(`${this.baseUrlOrder}/invoice/${id}`);
+  }
+
+  openInvoiceDialog(id) {
+    this.dialog.open(InvoiceDialogComponent, {
+      data: {
+        orderId: id,
+      },
+    });
   }
 }

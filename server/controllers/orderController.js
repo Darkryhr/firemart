@@ -39,7 +39,7 @@ exports.completeOrder = catchAsync(async (req, res, next) => {
     { active: false },
     { new: true }
   );
-  const order = Order.create({
+  const order = await Order.create({
     customer: req.user._id,
     cart: cart._id,
     price: 50,
@@ -48,6 +48,7 @@ exports.completeOrder = catchAsync(async (req, res, next) => {
     orderedAt: req.body.orderedAt,
     creditCardDigits: req.body.credit,
   });
+  console.log(order);
   res.status(200).json({
     message: 'success',
     data: {
