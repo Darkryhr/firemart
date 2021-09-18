@@ -19,7 +19,7 @@ export class InvoiceComponent implements OnInit {
   ) {
     this.orderId = route.snapshot.params['orderId'];
     this.orderService.getOrder(this.orderId).subscribe((res: any) => {
-      this.orderDetails = res.data;
+      this.orderDetails = res.data.order;
       this.printService.onDataReady();
     });
   }

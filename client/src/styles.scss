@@ -109,10 +109,10 @@ body {
 }
 
 @media print {
-  .isPrinting > * {
+  app-root > * {
     display: none;
   }
-  .isPrinting app-print-layout {
+  app-root app-print-layout {
     display: block;
   }
 }

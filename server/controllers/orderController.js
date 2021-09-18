@@ -33,22 +33,31 @@ exports.getOrder = catchAsync(async (req, res, next) => {
 });
 
 exports.completeOrder = catchAsync(async (req, res, next) => {
-  console.log(req.body);
-  const cart = await Cart.updateOne(
+  // * find relevant cart and set to inactive
+  const cart = await Cart.findOneAndUpdate(
     { customer: req.user._id, active: true },
     { active: false },
     { new: true }
   );
+  // * get all items associated with cart
+  const cartItems = await CartItem.find({ cart: cart._id });
+  // * calculate sum of products
+  const sumTotal = cartItems
+    .map((item) => {
+      return +item.price * +item.amount;
+    })
+    .reduce((acc, a) => acc + a, 0);
+  // * create order doc
   const order = await Order.create({
     customer: req.user._id,
     cart: cart._id,
-    price: 50,
+    price: sumTotal,
     address: req.body.city + ', ' + req.body.street,
     deliveryDate: req.body.delivery,
     orderedAt: req.body.orderedAt,
     creditCardDigits: req.body.credit,
   });
-  console.log(order);
+  // * send it back so user can print invoice
   res.status(200).json({
     message: 'success',
     data: {

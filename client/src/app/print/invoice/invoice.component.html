@@ -1,3 +1,9 @@
 <div class="invoice">
-  <h1>ORDER DETAILS</h1>
+  <h1>Invoice Num. {{ orderDetails._id }}</h1>
+  <h3>
+    Delivering To: {{ orderDetails.address }},
+    <br />
+    on {{ orderDetails.deliveryDate | date: "longDate" }}
+  </h3>
+  <p>Order Total: {{ orderDetails.price | currency: "ILS" }}</p>
 </div>
