@@ -1,6 +1,6 @@
 <ng-container>
-  {{ productInfo?.name | titlecase }}
   <mat-action-list>
+    {{ productInfo?.name | titlecase }} &nbsp;
     <app-increment-input
       [value]="cartItem?.amount"
       [step]="_step"
@@ -10,6 +10,15 @@
       #info
     >
     </app-increment-input>
-    <button mat-button>Update</button>
+    &nbsp;
+    <button
+      *ngIf="onChangeAmount(info)"
+      mat-button
+      matTooltip="Update Amount"
+      color="accent"
+      (click)="onUpdate(info)"
+    >
+      <mat-icon>update</mat-icon>
+    </button>
   </mat-action-list>
 </ng-container>

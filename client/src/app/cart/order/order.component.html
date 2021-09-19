@@ -1,6 +1,7 @@
 <mat-selection-list>
   <!-- <mat-list-option> </mat-list-option> -->
   <app-cart-item
+    (deleteItem)="itemDeleted($event)"
     *ngFor="let cartItem of cartItems"
     [cartItem]="cartItem"
   ></app-cart-item>

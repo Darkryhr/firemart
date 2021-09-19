@@ -35,4 +35,10 @@ export class SnackService {
       duration: 5000,
     });
   }
+
+  onProductDuplicate() {
+    this.snackBar.open('This product is already in your cart', 'Ok', {
+      duration: 5000,
+    });
+  }
 }

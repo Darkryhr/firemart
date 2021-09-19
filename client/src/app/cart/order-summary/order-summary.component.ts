@@ -10,28 +10,37 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./order-summary.component.scss'],
 })
 export class OrderSummaryComponent implements OnInit {
+  displayedColumns: string[] = ['product', 'amount', 'cost'];
+
   constructor(
     private orderService: OrderService,
     private productService: ProductService
   ) {}
 
-  allItems: CartItem[];
-  itemInfo: Product[] = [];
+  allItems: any[];
 
   ngOnInit(): void {
     this.orderService.getAllItems().subscribe((res) => {
       this.allItems = res.data.products;
-      res.data.products.forEach((item) => {
-        this.getProduct(item.product).subscribe((res: any) => {
-          this.itemInfo = [...this.itemInfo, res.data.product];
+      this.allItems.forEach((item) => {
+        this.productService.getProduct(item.product).subscribe((res: any) => {
+          item.name = res.data.product.name;
         });
       });
+      console.log(this.allItems);
     });
     // this.allItems.forEach();
   }
 
-  getProduct(id) {
-    console.log('CALL TO PRODUCT FROM ORDER SUMMARY: ' + id);
-    return this.productService.getProduct(id);
+  getTotalSum() {
+    return this.allItems
+      ?.map((item) => +item.price * +item.amount)
+      .reduce((acc, a) => acc + a, 0);
   }
 }
+
+// const sumTotal = cartItems
+// .map((item) => {
+//   return +item.price * +item.amount;
+// })
+// .reduce((acc, a) => acc + a, 0);

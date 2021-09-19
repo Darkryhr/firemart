@@ -28,4 +28,8 @@ export class OrderComponent implements OnInit {
   toPayment() {
     this.router.navigate(['test']);
   }
+
+  itemDeleted(e) {
+    this.cartItems = this.cartItems.filter((item) => item._id !== e);
+  }
 }

@@ -59,12 +59,53 @@ exports.getCart = catchAsync(async (req, res, next) => {
 //   }
 // });
 
-exports.updateProduct = catchAsync(async (req, res, next) => {});
+exports.updateCart = catchAsync(async (req, res, next) => {
+  const updatedItem = await CartItem.findByIdAndUpdate(
+    req.params.id,
+    {
+      amount: req.body.amount,
+    },
+    { new: true }
+  );
+
+  console.log(updatedItem);
+  res.status(200).json({
+    message: 'success',
+    data: {
+      updatedItem,
+    },
+  });
+});
+
+exports.deleteItem = catchAsync(async (req, res, next) => {
+  await CartItem.findByIdAndDelete(req.params.id);
+
+  res.status(204).json({
+    message: 'success',
+    data: null,
+  });
+});
 
 exports.getCartSum = catchAsync(async (req, res, next) => {
   const carts = await Cart.find();
   res.status(201).json({
     message: 'success',
     data: carts.length,
+  });
+});
+
+exports.getCartItem = catchAsync(async (req, res, next) => {
+  const cart = await Cart.find({ customer: req.user._id, active: true }).exec();
+
+  const cartItem = await CartItem.findOne({
+    product: req.params.id,
+    cart: cart[0]._id,
+  }).exec();
+
+  console.log(cartItem);
+
+  res.status(201).json({
+    message: 'success',
+    data: cartItem,
   });
 });

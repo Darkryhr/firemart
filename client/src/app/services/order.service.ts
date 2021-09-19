@@ -84,4 +84,16 @@ export class OrderService {
       },
     });
   }
+
+  updateAmount(id, amount: number) {
+    return this.httpClient.patch(`${this.baseUrl}/${id}`, { amount });
+  }
+
+  deleteItem(id) {
+    return this.httpClient.delete(`${this.baseUrl}/${id}`);
+  }
+
+  existsInCart(id) {
+    return this.httpClient.get(`${this.baseUrl}/${id}`);
+  }
 }

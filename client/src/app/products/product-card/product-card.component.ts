@@ -4,6 +4,7 @@ import { OrderService } from 'src/app/services/order.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
+import { SnackService } from 'src/app/services/snack.service';
 
 @Component({
   selector: 'app-product-card',
@@ -16,7 +17,8 @@ export class ProductCardComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snack: SnackService
   ) {}
 
   ngOnInit() {}
@@ -35,9 +37,18 @@ export class ProductCardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((res) => {
       let amount = res._value;
-      if (amount) {
-        this.orderService.add(this.product._id, amount, this.product.price);
-      }
+      this.orderService.existsInCart(this.product._id).subscribe((res: any) => {
+        console.log(res);
+        if (res.data) {
+          // add snack message here
+          this.snack.onProductDuplicate();
+          return;
+        } else {
+          if (amount) {
+            this.orderService.add(this.product._id, amount, this.product.price);
+          }
+        }
+      });
     });
   }
 }
