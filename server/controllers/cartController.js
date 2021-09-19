@@ -1,5 +1,4 @@
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
 const Cart = require('../models/Cart');
 const CartItem = require('../models/CartItem');
 
@@ -68,7 +67,6 @@ exports.updateCart = catchAsync(async (req, res, next) => {
     { new: true }
   );
 
-  console.log(updatedItem);
   res.status(200).json({
     message: 'success',
     data: {
@@ -101,8 +99,6 @@ exports.getCartItem = catchAsync(async (req, res, next) => {
     product: req.params.id,
     cart: cart[0]._id,
   }).exec();
-
-  console.log(cartItem);
 
   res.status(201).json({
     message: 'success',

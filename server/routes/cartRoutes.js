@@ -1,7 +1,8 @@
 const express = require('express');
-const router = express.Router();
 const authController = require('../controllers/authController');
 const cartController = require('../controllers/cartController');
+
+const router = express.Router();
 
 router.route('/').get(authController.protect, cartController.getCart);
 router.route('/:id').get(authController.protect, cartController.getCartItem);

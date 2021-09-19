@@ -1,7 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const Cart = require('../models/Cart');
 const CartItem = require('../models/CartItem');
-const cartController = require('./cartController');
 const Order = require('../models/Order');
 // Order model
 
@@ -43,16 +42,14 @@ exports.completeOrder = catchAsync(async (req, res, next) => {
   const cartItems = await CartItem.find({ cart: cart._id });
   // * calculate sum of products
   const sumTotal = cartItems
-    .map((item) => {
-      return +item.price * +item.amount;
-    })
+    .map((item) => +item.price * +item.amount)
     .reduce((acc, a) => acc + a, 0);
   // * create order doc
   const order = await Order.create({
     customer: req.user._id,
     cart: cart._id,
     price: sumTotal,
-    address: req.body.city + ', ' + req.body.street,
+    address: `${req.body.city}, ${req.body.street}`,
     deliveryDate: req.body.delivery,
     orderedAt: req.body.orderedAt,
     creditCardDigits: req.body.credit,
@@ -67,7 +64,6 @@ exports.completeOrder = catchAsync(async (req, res, next) => {
 });
 
 exports.getInvoice = catchAsync(async (req, res, next) => {
-  console.log(req.params.id);
   const order = await Order.findById(req.params.id).exec();
   res.status(200).json({
     message: 'success',

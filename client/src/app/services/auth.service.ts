@@ -21,6 +21,19 @@ export class AuthService {
 
   myData$: Observable<boolean>;
 
+  cities = [
+    'Jerusalem',
+    'Tel Aviv',
+    'Haifa',
+    'Ashdod',
+    'Rishon LeZiyon',
+    'Petah Tikva',
+    'BeerSheba',
+    'Netanya',
+    'Holon',
+    'Bnei Brak',
+  ].sort((a, b) => (a == b ? 0 : a < b ? -1 : 1));
+
   private dataSubject: Subject<boolean>;
 
   constructor(private http: HttpClient, public router: Router) {
@@ -99,13 +112,7 @@ export class AuthService {
   // Error
   handleError(error: HttpErrorResponse) {
     let msg = '';
-    if (error.error instanceof ErrorEvent) {
-      //client-side error
-      msg = error.error.message;
-    } else {
-      //server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
+    msg = error.error.message;
     return throwError(msg);
   }
 }

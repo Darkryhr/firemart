@@ -15,11 +15,10 @@ export class LoginComponent implements OnInit {
   registerForm = {};
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  cities = ['Ashdod', 'Tel-Aviv'];
 
   type: 'login' | 'signup' = 'signup';
   loading = false;
-
+  cities: string[];
   serverMessage: string;
 
   constructor(
@@ -48,6 +47,8 @@ export class LoginComponent implements OnInit {
       city: ['', Validators.required],
       street: ['', Validators.required],
     });
+
+    this.cities = this.authService.cities;
   }
 
   changeType(val) {
@@ -86,10 +87,15 @@ export class LoginComponent implements OnInit {
 
   async onRegister() {
     let customerDetails = { ...this.loginForm, ...this.registerForm };
-    this.authService.signUp(customerDetails).subscribe((res) => {
-      this.firstFormGroup.reset();
-      this.type = 'login';
-      this.snack.onRegister();
+    this.authService.signUp(customerDetails).subscribe({
+      next: (res) => {
+        this.firstFormGroup.reset();
+        this.type = 'login';
+        this.snack.onRegister();
+      },
+      error: (res) => {
+        this.serverMessage = res;
+      },
     });
   }
 

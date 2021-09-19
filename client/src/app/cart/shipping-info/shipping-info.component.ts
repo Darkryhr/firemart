@@ -10,7 +10,7 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class ShippingInfoComponent implements OnInit {
   form: FormGroup;
-  cities = ['Ashdod', 'Tel-Aviv'];
+  cities: string[];
   today: Date = new Date();
   constructor(
     private fb: FormBuilder,
@@ -33,6 +33,8 @@ export class ShippingInfoComponent implements OnInit {
         ],
       ],
     });
+
+    this.cities = this.authService.cities;
   }
 
   get credit() {

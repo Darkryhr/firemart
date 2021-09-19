@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Product } from '../models/product';
 import { Observable, throwError, Subject } from 'rxjs';
-import { FileInput } from 'ngx-material-file-input';
+import { catchError } from 'rxjs/operators';
 
 interface productResponse {
   status: string;
@@ -49,12 +49,14 @@ export class ProductService {
     if (image) {
       this.uploadFile(image.files[0]);
     }
-    return this.http.post(`http://localhost:3000/products`, {
-      name,
-      price,
-      category,
-      image: image ? image.files[0].name : '',
-    });
+    return this.http
+      .post(`http://localhost:3000/products`, {
+        name,
+        price,
+        category,
+        image: image ? image.files[0].name : '',
+      })
+      .pipe(catchError(this.handleError));
   }
 
   uploadFile(image) {
@@ -63,5 +65,12 @@ export class ProductService {
     return this.http
       .post(`http://localhost:3000/products/gallery`, formData)
       .subscribe();
+  }
+
+  // Error
+  handleError(error: HttpErrorResponse) {
+    let msg = '';
+    msg = error.error.message;
+    return throwError(msg);
   }
 }

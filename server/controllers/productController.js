@@ -1,10 +1,19 @@
+const formidable = require('formidable');
+const path = require('path');
+const fs = require('fs');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-const formidable = require('formidable');
-const path = require('path');
-const fs = require('fs');
+
+const isFileValid = (file) => {
+  const type = file.type.split('/').pop();
+  const validTypes = ['jpg', 'jpeg', 'png', 'pdf'];
+  if (validTypes.indexOf(type) === -1) {
+    return false;
+  }
+  return true;
+};
 
 exports.getAllProducts = catchAsync(async (req, res, next) => {
   const products = await Product.find();
@@ -108,12 +117,3 @@ exports.addProductImage = catchAsync(async (req, res, next) => {
     fs.renameSync(file.path, path.join(uploadFolder, fileName));
   });
 });
-
-const isFileValid = (file) => {
-  const type = file.type.split('/').pop();
-  const validTypes = ['jpg', 'jpeg', 'png', 'pdf'];
-  if (validTypes.indexOf(type) === -1) {
-    return false;
-  }
-  return true;
-};

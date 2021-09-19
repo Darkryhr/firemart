@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 const User = require('../models/User');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const { promisify } = require('util');
 const Cart = require('../models/Cart');
 
 const signToken = (id) =>
@@ -12,6 +12,10 @@ const signToken = (id) =>
 
 exports.signUp = catchAsync(async (req, res, next) => {
   const { email, password, name, city, street } = req.body;
+  const user = await User.findOne({ email: email });
+  if (user) {
+    return next(new AppError('A user with this email already exists', 401));
+  }
   const newUser = await User.create({
     // allows only needed data in new user, i.e can't sign in as admin
     email,
@@ -22,7 +26,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
     street,
   });
   // const token = signToken(newUser._id);
-  const newCart = await Cart.create({ customer: newUser._id });
+  await Cart.create({ customer: newUser._id });
   res.status(201).json({
     status: 'success',
     // token,
