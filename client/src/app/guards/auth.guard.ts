@@ -27,6 +27,11 @@ export class AuthGuard implements CanActivate {
       this.snack.authError();
       // this.router.navigate(['login']);
     }
-    return this.authService.isLoggedIn;
+    if (this.authService.getRole() !== 'admin') {
+      this.snack.adminError();
+    }
+    return (
+      this.authService.isLoggedIn && this.authService.getRole() !== 'admin'
+    );
   }
 }

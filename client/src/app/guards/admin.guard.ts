@@ -21,6 +21,6 @@ export class AdminGuard implements CanActivate {
     if (role !== 'admin') {
       this.snack.adminError();
     }
-    return true;
+    return this.authService.getRole() === 'admin';
   }
 }

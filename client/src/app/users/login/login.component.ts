@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(6), Validators.required]],
+      password: ['', [Validators.minLength(8), Validators.required]],
       passwordConfirm: ['', []],
     });
 
@@ -71,6 +71,9 @@ export class LoginComponent implements OnInit {
   }
   get name() {
     return this.secondFormGroup.get('name');
+  }
+  get street() {
+    return this.secondFormGroup.get('street');
   }
 
   get passwordConfirm() {

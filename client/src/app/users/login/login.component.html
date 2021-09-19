@@ -119,6 +119,9 @@
             formControlName="street"
             required
           />
+          <mat-error *ngIf="street.errors?.required">
+            You must enter a street
+          </mat-error>
         </mat-form-field>
         <br />
         <div>
