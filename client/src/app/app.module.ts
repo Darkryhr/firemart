@@ -15,7 +15,13 @@ import { PrintLayoutComponent } from './print/print-layout/print-layout.componen
 import { InvoiceComponent } from './print/invoice/invoice.component';
 import { InvoiceDialogComponent } from './print/invoice-dialog/invoice-dialog.component';
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, PrintLayoutComponent, InvoiceComponent, InvoiceDialogComponent],
+  declarations: [
+    AppComponent,
+    HomePageComponent,
+    PrintLayoutComponent,
+    InvoiceComponent,
+    InvoiceDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -69,7 +69,13 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 exports.addProductImage = catchAsync(async (req, res, next) => {
   // basic setup
   const form = formidable.IncomingForm();
-  const uploadFolder = path.join(__dirname, '../../', 'upload');
+  const uploadFolder = path.join(
+    __dirname,
+    '../../',
+    'client',
+    'src',
+    'assets'
+  );
 
   // basic config
   form.maxFileSize = 50 * 1024 * 1024;

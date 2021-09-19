@@ -16,7 +16,6 @@
       <a mat-list-item routerLink="/products" (click)="drawer.close()"
         >Products</a
       >
-      <a mat-list-item routerLink="/" (click)="drawer.close()">Cart</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -36,8 +35,12 @@
 
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
-        <button mat-button matTooltip="Cart">
-          <mat-icon>shopping_cart</mat-icon>
+        <button
+          mat-button
+          (click)="toggleDarkMode()"
+          matTooltip="Toggle Light / Dark Mode"
+        >
+          <mat-icon>{{ themeState }}</mat-icon>
         </button>
         <a mat-button routerLink="/products" matTooltip="Start Shopping"
           ><mat-icon>local_mall</mat-icon></a
@@ -48,13 +51,7 @@
         <a mat-button *ngIf="user" (click)="logout()" matTooltip="Logout"
           ><mat-icon>logout</mat-icon></a
         >
-        <button
-          mat-button
-          (click)="toggleDarkMode()"
-          matTooltip="Toggle Light / Dark Mode"
-        >
-          <mat-icon>{{ themeState }}</mat-icon>
-        </button>
+
         <!-- <button mat-button (click)="toggleDarkMode()" *ngIf="!isDarkMode">
           <mat-icon>dark_mode</mat-icon>
         </button> -->

@@ -30,4 +30,8 @@ export class ProductPageComponent implements OnInit {
       this.categories = res.data.categories;
     });
   }
+
+  showme(e) {
+    console.log(e);
+  }
 }

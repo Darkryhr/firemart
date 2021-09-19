@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CategoryPipe } from '../category.pipe';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ImgFallbackDirective } from '../img-fallback.directive';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     ProductPageComponent,
     CategoryPipe,
     ProductDialogComponent,
+    ImgFallbackDirective,
   ],
   entryComponents: [ProductDialogComponent],
   imports: [

@@ -1,24 +1,31 @@
 <!-- put this button in shell -->
-<button type="button" mat-button (click)="drawer.toggle()">
-  Toggle sidenav
-</button>
-<mat-form-field>
-  <input
-    matInput
-    type="text"
-    [(ngModel)]="searchText"
-    placeholder="Search for a product"
-  />
+<div class="topbar">
   <button
-    *ngIf="value"
-    matSuffix
-    mat-icon-button
-    aria-label="Clear"
-    (click)="searchText = ''"
+    type="button"
+    mat-button
+    (click)="drawer.toggle()"
+    matTooltip="View Cart"
   >
-    <mat-icon>close</mat-icon>
+    <mat-icon>shopping_cart</mat-icon>
   </button>
-</mat-form-field>
+  <mat-form-field class="search">
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search for a product"
+    />
+    <button
+      *ngIf="value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="searchText = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <h1>Your Cart</h1>
@@ -37,7 +44,7 @@
         &nbsp;
         {{ category.name | titlecase }}
       </ng-template>
-      <div class="grid">
+      <div class="grid example">
         <div
           class="cardholder"
           *ngFor="

@@ -44,17 +44,17 @@ export class ProductService {
   }
 
   create(body) {
+    console.log('CREATING PRODUCT');
     const { name, image, price, category } = body;
     if (image) {
       this.uploadFile(image.files[0]);
     }
-    return this.http
-      .post(`http://localhost:3000/products`, {
-        name,
-        price,
-        category,
-      })
-      .subscribe();
+    return this.http.post(`http://localhost:3000/products`, {
+      name,
+      price,
+      category,
+      image: image ? image.files[0].name : '',
+    });
   }
 
   uploadFile(image) {

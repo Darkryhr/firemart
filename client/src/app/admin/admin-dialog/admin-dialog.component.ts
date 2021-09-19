@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
-import { ImageService } from 'src/app/services/image.service';
 import { FileValidator } from 'ngx-material-file-input';
 
 @Component({
@@ -21,6 +20,7 @@ export class AdminDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.data.row);
     this.form = this.fb.group({
       name: [
         this.data.row.name,

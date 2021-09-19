@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { PrintService } from 'src/app/services/print.service';
+import { ProductPageComponent } from 'src/app/products/product-page/product-page.component';
 
 @Component({
   selector: 'app-shell',
@@ -17,6 +18,7 @@ export class ShellComponent implements OnInit {
   isDarkMode: boolean = false;
   showFiller = false;
   themeState: string = 'dark_mode';
+  @ViewChild(ProductPageComponent) child: ProductPageComponent;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset])
@@ -53,5 +55,9 @@ export class ShellComponent implements OnInit {
     if (this.token) {
       this.user = true;
     }
+  }
+
+  ngAfterViewInit() {
+    console.log(this.child);
   }
 }

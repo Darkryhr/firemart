@@ -21,23 +21,20 @@
 mat-form-field {
   width: 100%;
 }
+
 .grid {
   display: grid;
   gap: 0;
+  height: 100%;
   grid-template-columns: repeat(16, 1fr);
 }
 
 ::ng-deep .mat-form-field-underline {
   display: none;
 }
-
-.mat-form-field-wrapper {
-  padding-bottom: 0 !important;
+.topbar {
+  width: 100%;
 }
-
-// ::ng-deep.mat-tab-label,
-// ::ng-deep.mat-tab-label-active {
-//   min-width: 0 !important;
-//   padding: 3px 30px !important;
-//   margin: 3px 30px !important;
-// }
+.search {
+  width: auto !important;
+}

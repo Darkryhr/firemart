@@ -16,7 +16,7 @@ export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'category', 'price'];
   dataSource: MatTableDataSource<Product>;
   products: Product[] = [];
-
+  updatingProduct: Product;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -41,7 +41,7 @@ export class ProductTableComponent implements OnInit {
     }
   }
 
-  onRowClicked(row) {
+  updateProduct(row) {
     const dialogRef = this.dialog.open(AdminDialogComponent, {
       data: {
         row,
@@ -51,11 +51,19 @@ export class ProductTableComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((res) => {
       if (res?.pristine || res?.untouched) {
-        console.log('UNCHANGED');
       } else {
-        this.productService.create(res.value);
-
-        // this.productService.update(row._id, res?.value);
+        if (!res.value.image) res.value.image = row?.image;
+        this.productService.update(row._id, res?.value);
+        this.productService.productUpdate$.subscribe((res) => {
+          this.updatingProduct = res.data;
+          this.products.forEach((product) => {
+            if (product._id === this.updatingProduct._id) {
+              return this.updatingProduct;
+            } else {
+              return product;
+            }
+          });
+        });
       }
     });
   }
@@ -74,11 +82,11 @@ export class ProductTableComponent implements OnInit {
       if (res?.pristine || res?.untouched) {
         console.log('UNCHANGED');
       } else {
-        this.productService.create(res.value);
-        // this.productService.create(res.value).subscribe((res: any) => {
-        //   this.products = [...this.products, res.data.product];
-        //   this.dataSource.data = this.products;
-        // });
+        // this.productService.create(res.value);
+        this.productService.create(res.value).subscribe((res: any) => {
+          this.products = [...this.products, res.data.product];
+          this.dataSource.data = this.products;
+        });
       }
     });
   }
