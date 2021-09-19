@@ -17,7 +17,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
     return next(new AppError('A user with this email already exists', 401));
   }
   const newUser = await User.create({
-    // allows only needed data in new user, i.e can't sign in as admin
     email,
     password,
     role: 'user',
@@ -25,11 +24,9 @@ exports.signUp = catchAsync(async (req, res, next) => {
     city,
     street,
   });
-  // const token = signToken(newUser._id);
   await Cart.create({ customer: newUser._id });
   res.status(201).json({
     status: 'success',
-    // token,
     data: {
       user: newUser,
     },
@@ -69,7 +66,6 @@ exports.protect = catchAsync(async (req, res, next) => {
       new AppError('The user belonging to this token no longer exists', 401)
     );
 
-  // grant access to protected route, relevant when implementing admin privliges
   req.user = freshUser;
   next();
 });
