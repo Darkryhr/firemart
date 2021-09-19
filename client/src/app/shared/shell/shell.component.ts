@@ -28,8 +28,7 @@ export class ShellComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
-    private themeService: ThemeService,
-    private printService: PrintService
+    private themeService: ThemeService
   ) {
     this.authService.myData$.subscribe((data) => (this.user = data));
     this.themeService.initTheme();

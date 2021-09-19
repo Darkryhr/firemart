@@ -13,7 +13,12 @@
         <span class="from-server">{{ totalCarts }}</span> orders. Impressive, I
         know
       </p>
-      <a mat-raised-button routerLink="/login">Let's Get Started!</a>
+      <a mat-raised-button routerLink="/login" *ngIf="!user"
+        >Let's Get Started!</a
+      >
+      <a mat-raised-button routerLink="/products" *ngIf="user"
+        >Let's Keep Going!</a
+      >
     </div>
   </div>
 </div>
