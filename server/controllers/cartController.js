@@ -85,6 +85,7 @@ exports.deleteItem = catchAsync(async (req, res, next) => {
 });
 
 exports.getCartSum = catchAsync(async (req, res, next) => {
+  console.log('CART SUM');
   const carts = await Cart.find();
   res.status(201).json({
     message: 'success',

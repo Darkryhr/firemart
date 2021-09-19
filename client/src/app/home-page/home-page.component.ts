@@ -21,6 +21,7 @@ export class HomePageComponent implements OnInit {
       this.totalProducts = res.result;
     });
     this.orderService.getTotalCarts().subscribe((res: any) => {
+      console.log(res);
       this.totalCarts = res.data;
     });
   }

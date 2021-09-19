@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  height: 60vh;
+  height: 90vh;
 }
 
 .hero-img {
@@ -55,4 +55,10 @@
 .example-header-image {
   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
   background-size: cover;
+}
+
+.from-server {
+  font-weight: bold;
+  font-size: large;
+  color: rgb(155, 255, 185);
 }

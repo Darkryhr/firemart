@@ -1,23 +1,18 @@
 <div class="container">
   <div class="hero-img">
     <div class="hero-text white">
-      <h1>Welcome</h1>
+      <h1>Welcome!</h1>
       <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem esse
-        sint maxime natus incidunt? Sit molestias consequatur voluptatem aut
-        est?
+        To the world's best grocery store, if you want like
+        <span class="from-server">
+          {{ totalProducts }}
+        </span>
+        items...
+        <br />
+        but hey you're in good company, after all we've had a total of over
+        <span class="from-server">{{ totalCarts }}</span> Impressive, I know
       </p>
       <a mat-raised-button routerLink="/login">Let's Get Started!</a>
     </div>
   </div>
 </div>
-<mat-grid-list cols="2" rowHeight="60vh">
-  <mat-grid-tile>
-    <mat-card class="example-card">{{ totalCarts }} </mat-card></mat-grid-tile
-  >
-  <mat-grid-tile>
-    <mat-card class="example-card">
-      {{ totalProducts }}</mat-card
-    ></mat-grid-tile
-  >
-</mat-grid-list>
