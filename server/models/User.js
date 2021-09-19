@@ -38,7 +38,6 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
-  // can't access this.password, because of select:false
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);

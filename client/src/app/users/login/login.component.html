@@ -86,7 +86,6 @@
         #formtwo="ngForm"
         (ngSubmit)="form2()"
       >
-        <!-- <ng-template matStepLabel>Location</ng-template> -->
         <mat-form-field>
           <mat-label>Full Name</mat-label>
           <input
@@ -98,10 +97,6 @@
           <mat-error *ngIf="name.errors?.pattern"> Invalid Name </mat-error>
         </mat-form-field>
         <br />
-        <!-- <mat-form-field>
-          <mat-label>City</mat-label>
-          <input matInput placeholder="City" formControlName="city" required />
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>City</mat-label>
           <mat-select formControlName="city">
@@ -131,7 +126,6 @@
       </form>
     </mat-step>
     <mat-step>
-      <!-- <ng-template matStepLabel>Done</ng-template> -->
       <p>You are now done.</p>
 
       <mat-list>
@@ -166,10 +160,4 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-  <!-- <div *ngIf="afAuth.authState | async as user">
-    <p>
-      Logged in as <strong>{{ user.name }}</strong>
-    </p>
-    <button mat-stroked-button (click)="afAuth.signOut()">Logout</button>
-  </div> -->
 </mat-card>

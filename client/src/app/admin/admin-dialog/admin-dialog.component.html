@@ -11,16 +11,6 @@
       <mat-error *ngIf="name.errors?.pattern"> Not a valid name </mat-error>
     </mat-form-field>
 
-    <!-- 
-
-    <mat-form-field>
-      <mat-label>Category</mat-label>
-      <input matInput formControlName="category" autocomplete="off" />
-      <mat-error *ngIf="category.errors?.pattern">
-        A product must be in a category
-      </mat-error>
-    </mat-form-field> -->
-
     <mat-form-field>
       <mat-label>Category</mat-label>
       <mat-select formControlName="category">

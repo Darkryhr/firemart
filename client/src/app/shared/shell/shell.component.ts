@@ -17,6 +17,7 @@ export class ShellComponent implements OnInit {
   isDarkMode: boolean = false;
   showFiller = false;
   themeState: string = 'dark_mode';
+  admin: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset])
@@ -50,7 +51,13 @@ export class ShellComponent implements OnInit {
   ngOnInit() {
     this.token = this.authService.getToken();
     if (this.token) {
-      this.user = true;
+      if (this.authService.getRole() === 'admin') {
+        console.log(this.authService.getRole());
+        this.admin = true;
+        this.user = false;
+      } else {
+        this.user = true;
+      }
     }
   }
 }

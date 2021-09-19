@@ -52,12 +52,4 @@ export class ShippingInfoComponent implements OnInit {
   onSubmit() {
     this.orderService.completeOrder(this.form.value);
   }
-
-  //? sends user to print out his invoice
-  // onPrintInvoice() {
-  //* replace this line with the orders id
-  //   const invoiceIds = ['101', '102'];
-  //   this.printService
-  //     .printDocument('invoice', invoiceIds);
-  // }
 }

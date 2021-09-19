@@ -7,8 +7,6 @@ import {
   HttpParams,
   HttpRequest,
 } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { Gallery } from '../models/gallery';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,4 @@
-import { Product } from './../../models/product';
 import { Component, OnInit } from '@angular/core';
-import { CartItem } from 'src/app/models/cartItem';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -27,9 +25,7 @@ export class OrderSummaryComponent implements OnInit {
           item.name = res.data.product.name;
         });
       });
-      console.log(this.allItems);
     });
-    // this.allItems.forEach();
   }
 
   getTotalSum() {
@@ -38,9 +34,3 @@ export class OrderSummaryComponent implements OnInit {
       .reduce((acc, a) => acc + a, 0);
   }
 }
-
-// const sumTotal = cartItems
-// .map((item) => {
-//   return +item.price * +item.amount;
-// })
-// .reduce((acc, a) => acc + a, 0);

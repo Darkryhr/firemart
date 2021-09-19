@@ -23,10 +23,6 @@ export class ProductCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  // addToCart(e) {
-  //   this.orderService.add(this.authService.currentUser._id, this.product._id);
-  // }
-
   openDialog() {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
       data: {
@@ -40,7 +36,6 @@ export class ProductCardComponent implements OnInit {
       this.orderService.existsInCart(this.product._id).subscribe((res: any) => {
         console.log(res);
         if (res.data) {
-          // add snack message here
           this.snack.onProductDuplicate();
           return;
         } else {

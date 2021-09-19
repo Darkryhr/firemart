@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn !== true) {
       this.snack.authError();
-      // this.router.navigate(['login']);
     }
     if (this.authService.getRole() === 'admin') {
       this.snack.adminError();

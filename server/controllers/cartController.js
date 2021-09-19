@@ -3,16 +3,8 @@ const Cart = require('../models/Cart');
 const CartItem = require('../models/CartItem');
 
 exports.addToCart = catchAsync(async (req, res, next) => {
-  // req.user will hold user Id, use it to point to cart
-  // find cart in Cart model by User.id
   const cart = await Cart.find({ customer: req.user._id, active: true }).exec();
-  // req should contain the whole product object
-  //   create cart item and have it point at said cart
   const { amount, product, price } = req.body;
-  // CartItem.exists(
-  //   filter query that checks the product id and cart id, if true, then route to updateCart
-  // )
-
   const newItem = await CartItem.create({
     product,
     amount: amount,
@@ -46,17 +38,6 @@ exports.getCart = catchAsync(async (req, res, next) => {
     }
   }
 });
-
-// exports.getCart = catchAsync(async (req, res, next) => {
-//   const cart = await Cart.find({ customer: req.user._id, active: true });
-//   if (cart) {
-//     res.status(200).json({ message: 'success', data: { cart } });
-//   } else {
-//     // * no active cart found, should happen after a purchase is complete
-//     const newCart = await Cart.create({ customer: req.user._id });
-//     res.status(200).json({ message: 'success', data: { newCart } });
-//   }
-// });
 
 exports.updateCart = catchAsync(async (req, res, next) => {
   const updatedItem = await CartItem.findByIdAndUpdate(
