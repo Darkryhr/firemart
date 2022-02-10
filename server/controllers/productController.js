@@ -93,7 +93,6 @@ exports.addProductImage = catchAsync(async (req, res, next) => {
   // parsing
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      console.log('Error parsing the files');
       return res.status(400).json({
         status: 'Fail',
         message: 'There was an error parsing the files',
