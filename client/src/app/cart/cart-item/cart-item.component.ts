@@ -1,6 +1,6 @@
+import { Product } from './../../models/product';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CartItem } from 'src/app/models/cartItem';
-import { Product } from 'src/app/models/product';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -28,10 +28,8 @@ export class CartItemComponent implements OnInit {
     if (this.cartItem) {
       this.productService
         .getProduct(this.cartItem?.product)
-        .subscribe((res: any) => {
-          if (res.data) {
-            this.productInfo = res.data.product;
-          }
+        .subscribe((res: Product) => {
+          this.productInfo = res;
         });
     }
   }
@@ -45,12 +43,10 @@ export class CartItemComponent implements OnInit {
     if (e._value === 0) {
       //* delete item
       this.orderService.deleteItem(this.cartItem._id).subscribe((res: any) => {
-        console.log(res);
         this.deleteItem.emit(this.cartItem._id);
       });
     } else {
       //* update amount
-      console.log('UPDATING:');
       this.orderService
         .updateAmount(this.cartItem._id, +e._value)
         .subscribe((res: any) => {

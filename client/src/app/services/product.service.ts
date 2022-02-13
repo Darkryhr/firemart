@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Product } from '../models/product';
-import { Observable, throwError, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
+import {
+  catchError,
+  find,
+  map,
+  mergeAll,
+  mergeMap,
+  pluck,
+  shareReplay,
+  tap,
+} from 'rxjs/operators';
 
-interface productResponse {
+export interface productResponse {
   status: string;
   result: number;
   data: {
@@ -17,22 +26,42 @@ interface productResponse {
 export class ProductService {
   productUpdate$: Observable<any>;
   private productSubject: Subject<any>;
+  private allProducts$ = new BehaviorSubject<productResponse>({
+    status: null,
+    result: null,
+    data: { products: [] },
+  });
 
   constructor(private http: HttpClient) {
     this.productSubject = new Subject<any>();
     this.productUpdate$ = this.productSubject.asObservable();
+    this.getProducts().subscribe((val) => this.allProducts$.next(val));
   }
 
   getProducts() {
-    return this.http.get<productResponse>('http://localhost:3000/products');
+    return this.http
+      .get<productResponse>('http://localhost:3000/products')
+      .pipe(shareReplay());
+  }
+
+  getProductsSubject() {
+    return this.allProducts$.asObservable();
   }
 
   getProduct(id) {
-    return this.http.get(`http://localhost:3000/products/${id}`);
+    return this.allProducts$.pipe(
+      pluck('data', 'products'),
+      mergeAll(),
+      find((product) => product._id === id)
+    );
+
+    // return this.http.get(`http://localhost:3000/products/${id}`);
   }
 
   getCategories() {
-    return this.http.get('http://localhost:3000/products/categories');
+    return this.http
+      .get('http://localhost:3000/products/categories')
+      .pipe(shareReplay());
   }
 
   update(id, body) {
@@ -44,7 +73,6 @@ export class ProductService {
   }
 
   create(body) {
-    console.log('CREATING PRODUCT');
     const { name, image, price, category } = body;
     if (image) {
       this.uploadFile(image.files[0]);

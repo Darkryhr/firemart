@@ -1,7 +1,11 @@
-import { ProductService } from './../../services/product.service';
+import {
+  productResponse,
+  ProductService,
+} from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { PrintService } from 'src/app/services/print.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-page',
@@ -10,10 +14,10 @@ import { PrintService } from 'src/app/services/print.service';
 })
 export class ProductPageComponent implements OnInit {
   showFiller = false;
-  value = 'Search';
+  value: string = 'Search';
   user = {};
   searchText;
-  products = [];
+  products: Product[] = [];
   categories = [];
 
   constructor(
@@ -23,15 +27,15 @@ export class ProductPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.currentUser;
-    this.productService
-      .getProducts()
-      .subscribe((res) => (this.products = res.data.products));
+    // this.productService
+    //   .getProducts()
+    //   .subscribe((res) => (this.products = res.data.products));
     this.productService.getCategories().subscribe((res: any) => {
       this.categories = res.data.categories;
     });
-  }
 
-  showme(e) {
-    console.log(e);
+    this.productService
+      .getProductsSubject()
+      .subscribe((res: productResponse) => (this.products = res.data.products));
   }
 }

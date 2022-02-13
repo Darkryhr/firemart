@@ -16,7 +16,6 @@ export class ProductCardComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
-    private authService: AuthService,
     private dialog: MatDialog,
     private snack: SnackService
   ) {}
@@ -34,7 +33,6 @@ export class ProductCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res) => {
       let amount = res._value;
       this.orderService.existsInCart(this.product._id).subscribe((res: any) => {
-        console.log(res);
         if (res.data) {
           this.snack.onProductDuplicate();
           return;

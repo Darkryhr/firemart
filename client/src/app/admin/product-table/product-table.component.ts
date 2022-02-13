@@ -1,9 +1,12 @@
+import { Product } from './../../models/product';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/product.service';
+import {
+  productResponse,
+  ProductService,
+} from 'src/app/services/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminDialogComponent } from '../admin-dialog/admin-dialog.component';
 
@@ -24,12 +27,15 @@ export class ProductTableComponent implements OnInit {
     private productService: ProductService,
     private dialog: MatDialog
   ) {
-    this.productService.getProducts().subscribe((res: any) => {
-      this.products = res.data.products;
-      this.dataSource = new MatTableDataSource(res.data.products);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    this.productService
+      .getProductsSubject()
+      .subscribe((res: productResponse) => {
+        this.products = res.data.products;
+        this.dataSource = new MatTableDataSource(res.data.products);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    // this.productService.getProducts().subscribe((res: any) => {});
   }
 
   applyFilter(event: Event) {
