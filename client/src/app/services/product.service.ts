@@ -2,16 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Product } from '../models/product';
 import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
-import {
-  catchError,
-  find,
-  map,
-  mergeAll,
-  mergeMap,
-  pluck,
-  shareReplay,
-  tap,
-} from 'rxjs/operators';
+import { catchError, find, mergeAll, pluck, shareReplay } from 'rxjs/operators';
 
 export interface productResponse {
   status: string;
@@ -54,8 +45,6 @@ export class ProductService {
       mergeAll(),
       find((product) => product._id === id)
     );
-
-    // return this.http.get(`http://localhost:3000/products/${id}`);
   }
 
   getCategories() {
@@ -95,7 +84,6 @@ export class ProductService {
       .subscribe();
   }
 
-  // Error
   handleError(error: HttpErrorResponse) {
     let msg = '';
     msg = error.error.message;

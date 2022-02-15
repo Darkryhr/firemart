@@ -3,7 +3,6 @@ import { OrderService } from 'src/app/services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AuthService } from '../services/auth.service';
-import { Product } from '../models/product';
 
 @Component({
   selector: 'app-home-page',
@@ -27,7 +26,6 @@ export class HomePageComponent implements OnInit {
       .subscribe((res: productResponse) => {
         this.totalProducts = res.result;
       });
-    // this.productService.getProducts().subscribe((res: any) => {});
     this.orderService.getTotalCarts().subscribe((res: any) => {
       this.totalCarts = res.data;
     });
