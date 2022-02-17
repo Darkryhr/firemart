@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError, Subject } from 'rxjs';
+import { Observable, throwError, Subject, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import {
   HttpClient,
@@ -44,26 +44,15 @@ export class AuthService {
 
   // Sign-up
   signUp(user): Observable<any> {
-    let api = `${this.endpoint}/signup`;
+    let api = `${this.endpoint}signup`;
     return this.http.post(api, user).pipe(catchError(this.handleError));
   }
 
   // Sign-in
   signIn(user) {
     return this.http
-      .post<any>(`${this.endpoint}/login`, user)
-      .subscribe((res: any) => {
-        localStorage.setItem('token', res.token);
-        this.getUserProfile().subscribe((res) => {
-          if (res.data.user.role === 'user') {
-            localStorage.setItem('role', 'user');
-            this.router.navigate(['products']);
-          } else if (res.data.user.role === 'admin') {
-            localStorage.setItem('role', 'admin');
-            this.router.navigate(['admin']);
-          }
-        });
-      });
+      .post<any>(`${this.endpoint}login`, user)
+      .pipe(catchError(this.handleError));
   }
 
   getToken() {
@@ -92,7 +81,7 @@ export class AuthService {
 
   // User profile
   getUserProfile(): Observable<any> {
-    let api = `${this.endpoint}/profile/`;
+    let api = `${this.endpoint}profile/`;
     return this.http.get<any>(api, { headers: this.headers }).pipe(
       map((res) => {
         return res || {};
@@ -109,6 +98,7 @@ export class AuthService {
   handleError(error: HttpErrorResponse) {
     let msg = '';
     msg = error.error.message;
-    return throwError(msg);
+
+    return throwError({ errorMessage: msg, statusCode: error.status });
   }
 }

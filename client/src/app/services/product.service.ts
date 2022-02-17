@@ -27,7 +27,10 @@ export class ProductService {
   constructor(private http: HttpClient) {
     this.productSubject = new Subject<any>();
     this.productUpdate$ = this.productSubject.asObservable();
-    this.getProducts().subscribe((val) => this.allProducts$.next(val));
+    this.getProducts().subscribe((val) => {
+      console.log(val);
+      this.allProducts$.next(val);
+    });
   }
 
   getProducts() {
