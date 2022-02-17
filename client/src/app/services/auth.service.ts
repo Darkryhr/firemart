@@ -8,12 +8,13 @@ import {
 } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { Constants } from '../config/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  endpoint: string = 'http://localhost:3000/users';
+  endpoint: string = Constants.API_USER_ENDPOINT;
 
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 

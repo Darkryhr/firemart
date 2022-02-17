@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Product } from '../models/product';
 import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, find, mergeAll, pluck, shareReplay } from 'rxjs/operators';
+import { Constants } from '../config/constants';
 
 export interface productResponse {
   status: string;
@@ -31,7 +32,7 @@ export class ProductService {
 
   getProducts() {
     return this.http
-      .get<productResponse>('http://localhost:3000/products')
+      .get<productResponse>(Constants.API_PRODUCT_ENDPOINT)
       .pipe(shareReplay());
   }
 
@@ -49,13 +50,13 @@ export class ProductService {
 
   getCategories() {
     return this.http
-      .get('http://localhost:3000/products/categories')
+      .get(Constants.API_PRODUCT_ENDPOINT + 'categories')
       .pipe(shareReplay());
   }
 
   update(id, body) {
     return this.http
-      .patch(`http://localhost:3000/products/${id}`, body)
+      .patch(Constants.API_PRODUCT_ENDPOINT + id, body)
       .subscribe((res: any) => {
         this.productSubject.next(res);
       });
@@ -67,7 +68,7 @@ export class ProductService {
       this.uploadFile(image.files[0]);
     }
     return this.http
-      .post(`http://localhost:3000/products`, {
+      .post(Constants.API_PRODUCT_ENDPOINT, {
         name,
         price,
         category,
@@ -79,9 +80,7 @@ export class ProductService {
   uploadFile(image) {
     const formData: FormData = new FormData();
     formData.append('filekey', image, image.name);
-    return this.http
-      .post(`http://localhost:3000/products/gallery`, formData)
-      .subscribe();
+    return this.http.post(Constants.API_GALLERY_ENDPOINT, formData).subscribe();
   }
 
   handleError(error: HttpErrorResponse) {

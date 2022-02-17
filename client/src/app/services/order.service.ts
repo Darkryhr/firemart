@@ -6,6 +6,7 @@ import { CartItem } from '../models/cartItem';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceDialogComponent } from 'src/app/print/invoice-dialog/invoice-dialog.component';
+import { Constants } from '../config/constants';
 
 interface OrderResponse {
   data: {
@@ -16,8 +17,8 @@ interface OrderResponse {
   providedIn: 'root',
 })
 export class OrderService {
-  baseUrl = 'http://localhost:3000/cart';
-  baseUrlOrder = 'http://localhost:3000/order';
+  baseUrl = Constants.API_CART_ENDPOINT;
+  baseUrlOrder = Constants.API_ORDER_ENDPOINT;
   cartUpdate$: Observable<any>;
   private cartSubject: Subject<any>;
   @Output() status = new EventEmitter();

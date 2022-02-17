@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse,
-  HttpParams,
-  HttpRequest,
-} from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Constants } from '../config/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ImageService {
-  apiUrl = 'http://localhost:3000/gallery';
+  apiUrl = Constants.API_GALLERY_ENDPOINT;
+
   constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse): any {

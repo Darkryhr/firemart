@@ -14,6 +14,7 @@ import { AuthenticationInterceptor } from './services/auth.interceptor';
 import { PrintLayoutComponent } from './print/print-layout/print-layout.component';
 import { InvoiceComponent } from './print/invoice/invoice.component';
 import { InvoiceDialogComponent } from './print/invoice-dialog/invoice-dialog.component';
+import { Constants } from './config/constants';
 @NgModule({
   declarations: [
     AppComponent,
