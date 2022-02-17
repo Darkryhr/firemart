@@ -3,6 +3,7 @@ import { OrderService } from 'src/app/services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AuthService } from '../services/auth.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-page',
@@ -23,6 +24,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.productService
       .getProductsSubject()
+      .pipe(first())
       .subscribe((res: productResponse) => {
         this.totalProducts = res.result;
       });
