@@ -17,7 +17,7 @@ interface OrderResponse {
   providedIn: 'root',
 })
 export class OrderService {
-  baseUrl = Constants.API_CART_ENDPOINT;
+  endpoint = Constants.API_CART_ENDPOINT;
   baseUrlOrder = Constants.API_ORDER_ENDPOINT;
   cartUpdate$: Observable<any>;
   private cartSubject: Subject<any>;
@@ -34,7 +34,7 @@ export class OrderService {
 
   add(product: string, amount: number, price: number) {
     return this.httpClient
-      .post(`${this.baseUrl}/add`, {
+      .post(`${this.endpoint}/add`, {
         product,
         amount,
         price,
@@ -48,30 +48,29 @@ export class OrderService {
     this.cartSubject.next([]);
   }
 
+  //* Get full cart
   getAllItems() {
     return this.httpClient.get<OrderResponse>(this.baseUrlOrder);
   }
 
+  getOrder(id) {
+    return this.httpClient.get(`${this.baseUrlOrder}/invoice/${id}`);
+  }
+
   getTotalCarts() {
-    return this.httpClient.get(`${this.baseUrl}/sum`);
+    return this.httpClient.get(`${this.endpoint}/sum`);
   }
 
   completeOrder(body) {
     return this.httpClient
       .post(`${this.baseUrlOrder}/finish`, body)
       .subscribe((res: any) => {
-        if (res.message === 'success') {
-          this.clear();
-          this.openInvoiceDialog(res.data.order._id);
-          this.router.navigate(['products']);
-        } else {
-          // send error
-        }
+        //TODO: handle error
+        if (res.message !== 'success') return;
+        this.clear();
+        this.openInvoiceDialog(res.data.order._id);
+        this.router.navigate(['products']);
       });
-  }
-
-  getOrder(id) {
-    return this.httpClient.get(`${this.baseUrlOrder}/invoice/${id}`);
   }
 
   openInvoiceDialog(id) {
@@ -82,15 +81,16 @@ export class OrderService {
     });
   }
 
+  //TODO: check if this needs changing, they effect the cart subject
   updateAmount(id, amount: number) {
-    return this.httpClient.patch(`${this.baseUrl}/${id}`, { amount });
+    return this.httpClient.patch(`${this.endpoint}/${id}`, { amount });
   }
 
   deleteItem(id) {
-    return this.httpClient.delete(`${this.baseUrl}/${id}`);
+    return this.httpClient.delete(`${this.endpoint}/${id}`);
   }
 
   existsInCart(id) {
-    return this.httpClient.get(`${this.baseUrl}/${id}`);
+    return this.httpClient.get(`${this.endpoint}/${id}`);
   }
 }

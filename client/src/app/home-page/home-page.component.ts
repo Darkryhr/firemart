@@ -28,9 +28,12 @@ export class HomePageComponent implements OnInit {
       .subscribe((res: productResponse) => {
         this.totalProducts = res.result;
       });
-    this.orderService.getTotalCarts().subscribe((res: any) => {
-      this.totalCarts = res.data;
-    });
+    this.orderService
+      .getTotalCarts()
+      .pipe(first())
+      .subscribe((res: any) => {
+        this.totalCarts = res.data;
+      });
 
     if (this.authService.getToken()) {
       this.user = true;
