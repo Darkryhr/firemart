@@ -4,7 +4,6 @@ import {
 } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { PrintService } from 'src/app/services/print.service';
 import { Product } from 'src/app/models/product';
 
 @Component({
@@ -27,9 +26,6 @@ export class ProductPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.currentUser;
-    // this.productService
-    //   .getProducts()
-    //   .subscribe((res) => (this.products = res.data.products));
     this.productService.getCategories().subscribe((res: any) => {
       this.categories = res.data.categories;
     });

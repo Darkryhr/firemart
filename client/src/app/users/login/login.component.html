@@ -1,12 +1,10 @@
 <mat-card>
   <div *ngIf="isSignup">
     <h3>Create Account</h3>
-
     <button mat-stroked-button (click)="changeType('login')">
       Returning user?
     </button>
   </div>
-
   <div *ngIf="isLogin">
     <h3>Sign In</h3>
     <button size="small" mat-stroked-button (click)="changeType('signup')">
@@ -24,12 +22,10 @@
             placeholder="Email"
             autocomplete="off"
           />
-
           <mat-error *ngIf="email.invalid && email.dirty">
             You must enter a valid email address
           </mat-error>
         </mat-form-field>
-
         <mat-form-field [color]="email.valid && 'accent'">
           <input
             matInput
@@ -38,7 +34,6 @@
             placeholder="Password"
             autocomplete="off"
           />
-
           <mat-error *ngIf="password.invalid && password.dirty">
             Password must be at least 6 characters long
           </mat-error>
