@@ -1,5 +1,5 @@
 import { productResponse } from './../services/product.service';
-import { OrderService } from 'src/app/services/order.service';
+import { OrderService, SumResponse } from 'src/app/services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AuthService } from '../services/auth.service';
@@ -31,7 +31,7 @@ export class HomePageComponent implements OnInit {
     this.orderService
       .getTotalCarts()
       .pipe(first())
-      .subscribe((res: any) => {
+      .subscribe((res: SumResponse) => {
         this.totalCarts = res.data;
       });
 

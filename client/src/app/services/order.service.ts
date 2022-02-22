@@ -1,17 +1,28 @@
 import { Injectable, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { CartItem } from '../models/cartItem';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceDialogComponent } from 'src/app/print/invoice-dialog/invoice-dialog.component';
 import { Constants } from '../config/constants';
+import { Order } from '../models/order';
 
 interface OrderResponse {
   data: {
     products: CartItem[];
   };
+}
+
+interface InvoiceResponse {
+  data: {
+    order: Order;
+  };
+}
+
+export interface SumResponse {
+  data: number;
 }
 @Injectable({
   providedIn: 'root',
@@ -32,7 +43,7 @@ export class OrderService {
     this.cartUpdate$ = this.cartSubject.asObservable();
   }
 
-  add(product: string, amount: number, price: number) {
+  add(product: string, amount: number, price: number): Subscription {
     return this.httpClient
       .post(`${this.endpoint}/add`, {
         product,
@@ -53,12 +64,14 @@ export class OrderService {
     return this.httpClient.get<OrderResponse>(this.baseUrlOrder);
   }
 
-  getOrder(id) {
-    return this.httpClient.get(`${this.baseUrlOrder}/invoice/${id}`);
+  getOrder(id: string) {
+    return this.httpClient.get<InvoiceResponse>(
+      `${this.baseUrlOrder}/invoice/${id}`
+    );
   }
 
   getTotalCarts() {
-    return this.httpClient.get(`${this.endpoint}/sum`);
+    return this.httpClient.get<SumResponse>(`${this.endpoint}/sum`);
   }
 
   completeOrder(body) {
