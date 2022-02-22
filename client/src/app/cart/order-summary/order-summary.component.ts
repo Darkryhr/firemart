@@ -22,7 +22,7 @@ export class OrderSummaryComponent implements OnInit {
       this.allItems = res.data.products;
       this.allItems.forEach((item) => {
         this.productService.getProduct(item.product).subscribe((res: any) => {
-          item.name = res.data.product.name;
+          item.name = res.name;
         });
       });
     });
