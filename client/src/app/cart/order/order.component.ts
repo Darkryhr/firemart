@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { OrderService } from 'src/app/services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { CartItem } from 'src/app/models/cartItem';
@@ -12,9 +13,12 @@ export class OrderComponent implements OnInit {
   cartItems: CartItem[] = [];
   constructor(private orderService: OrderService, private router: Router) {}
   ngOnInit(): void {
-    this.orderService.getAllItems().subscribe((res: any) => {
-      this.cartItems = res.data.products || [];
-    });
+    this.orderService
+      .getAllItems()
+      .pipe(first())
+      .subscribe((res: any) => {
+        this.cartItems = res.data.products || [];
+      });
 
     this.orderService.cartUpdate$.subscribe((res) => {
       if (res === []) {

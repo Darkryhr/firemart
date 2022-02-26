@@ -27,7 +27,9 @@ export class SnackService {
   }
 
   onRegister() {
-    this.snackBar.open('Thank You!', 'Login');
+    this.snackBar.open('Thank You!', 'Login', {
+      duration: 5000,
+    });
   }
 
   onOrderComplete() {
@@ -38,6 +40,12 @@ export class SnackService {
 
   onProductDuplicate() {
     this.snackBar.open('This product is already in your cart', 'Ok', {
+      duration: 5000,
+    });
+  }
+
+  onSignInError(err: string) {
+    this.snackBar.open(err, 'Ok', {
       duration: 5000,
     });
   }

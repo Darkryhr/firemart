@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import { PrintService } from 'src/app/services/print.service';
 import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-invoice',
@@ -18,10 +19,13 @@ export class InvoiceComponent implements OnInit {
     route: ActivatedRoute
   ) {
     this.orderId = route.snapshot.params['orderId'];
-    this.orderService.getOrder(this.orderId).subscribe((res: any) => {
-      this.orderDetails = res.data.order;
-      this.printService.onDataReady();
-    });
+    this.orderService
+      .getOrder(this.orderId)
+      .pipe(first())
+      .subscribe((res: any) => {
+        this.orderDetails = res.data.order;
+        this.printService.onDataReady();
+      });
   }
 
   ngOnInit() {}

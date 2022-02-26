@@ -1,8 +1,8 @@
 export const Constants = {
-  API_ENDPOINT: 'http://localhost:3000/',
-  API_USER_ENDPOINT: 'http://localhost:3000/users/',
-  API_PRODUCT_ENDPOINT: 'http://localhost:3000/products/',
-  API_CART_ENDPOINT: 'http://localhost:3000/cart/',
-  API_ORDER_ENDPOINT: 'http://localhost:3000/order/',
-  API_GALLERY_ENDPOINT: 'http://localhost:3000/gallery/',
+  API_ENDPOINT: 'https://firemart-docker.herokuapp.com/',
+  API_USER_ENDPOINT: 'https://firemart-docker.herokuapp.com/users/',
+  API_PRODUCT_ENDPOINT: 'https://firemart-docker.herokuapp.com/products/',
+  API_CART_ENDPOINT: 'https://firemart-docker.herokuapp.com/cart/',
+  API_ORDER_ENDPOINT: 'https://firemart-docker.herokuapp.com/order/',
+  API_GALLERY_ENDPOINT: 'https://firemart-docker.herokuapp.com/gallery/',
 };

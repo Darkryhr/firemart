@@ -65,6 +65,7 @@ exports.deleteItem = catchAsync(async (req, res, next) => {
   });
 });
 
+//* total number of carts
 exports.getCartSum = catchAsync(async (req, res, next) => {
   const carts = await Cart.find();
   res.status(201).json({

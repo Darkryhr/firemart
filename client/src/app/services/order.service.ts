@@ -1,23 +1,34 @@
 import { Injectable, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { CartItem } from '../models/cartItem';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceDialogComponent } from 'src/app/print/invoice-dialog/invoice-dialog.component';
 import { Constants } from '../config/constants';
+import { Order } from '../models/order';
 
 interface OrderResponse {
   data: {
     products: CartItem[];
   };
 }
+
+interface InvoiceResponse {
+  data: {
+    order: Order;
+  };
+}
+
+export interface SumResponse {
+  data: number;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  baseUrl = Constants.API_CART_ENDPOINT;
+  endpoint = Constants.API_CART_ENDPOINT;
   baseUrlOrder = Constants.API_ORDER_ENDPOINT;
   cartUpdate$: Observable<any>;
   private cartSubject: Subject<any>;
@@ -32,9 +43,9 @@ export class OrderService {
     this.cartUpdate$ = this.cartSubject.asObservable();
   }
 
-  add(product: string, amount: number, price: number) {
+  add(product: string, amount: number, price: number): Subscription {
     return this.httpClient
-      .post(`${this.baseUrl}/add`, {
+      .post(`${this.endpoint}/add`, {
         product,
         amount,
         price,
@@ -48,30 +59,31 @@ export class OrderService {
     this.cartSubject.next([]);
   }
 
+  //* Get full cart
   getAllItems() {
     return this.httpClient.get<OrderResponse>(this.baseUrlOrder);
   }
 
+  getOrder(id: string) {
+    return this.httpClient.get<InvoiceResponse>(
+      `${this.baseUrlOrder}/invoice/${id}`
+    );
+  }
+
   getTotalCarts() {
-    return this.httpClient.get(`${this.baseUrl}/sum`);
+    return this.httpClient.get<SumResponse>(`${this.endpoint}/sum`);
   }
 
   completeOrder(body) {
     return this.httpClient
       .post(`${this.baseUrlOrder}/finish`, body)
       .subscribe((res: any) => {
-        if (res.message === 'success') {
-          this.clear();
-          this.openInvoiceDialog(res.data.order._id);
-          this.router.navigate(['products']);
-        } else {
-          // send error
-        }
+        //TODO: handle error
+        if (res.message !== 'success') return;
+        this.clear();
+        this.openInvoiceDialog(res.data.order._id);
+        this.router.navigate(['products']);
       });
-  }
-
-  getOrder(id) {
-    return this.httpClient.get(`${this.baseUrlOrder}/invoice/${id}`);
   }
 
   openInvoiceDialog(id) {
@@ -82,15 +94,16 @@ export class OrderService {
     });
   }
 
+  //TODO: check if this needs changing, they effect the cart subject
   updateAmount(id, amount: number) {
-    return this.httpClient.patch(`${this.baseUrl}/${id}`, { amount });
+    return this.httpClient.patch(`${this.endpoint}/${id}`, { amount });
   }
 
   deleteItem(id) {
-    return this.httpClient.delete(`${this.baseUrl}/${id}`);
+    return this.httpClient.delete(`${this.endpoint}/${id}`);
   }
 
   existsInCart(id) {
-    return this.httpClient.get(`${this.baseUrl}/${id}`);
+    return this.httpClient.get(`${this.endpoint}/${id}`);
   }
 }

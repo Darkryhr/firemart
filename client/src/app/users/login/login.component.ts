@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { SnackService } from 'src/app/services/snack.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -90,16 +92,19 @@ export class LoginComponent implements OnInit {
 
   async onRegister() {
     let customerDetails = { ...this.loginForm, ...this.registerForm };
-    this.authService.signUp(customerDetails).subscribe({
-      next: (res) => {
-        this.firstFormGroup.reset();
-        this.type = 'login';
-        this.snack.onRegister();
-      },
-      error: (res) => {
-        this.serverMessage = res;
-      },
-    });
+    this.authService
+      .signUp(customerDetails)
+      .pipe(catchError((error) => this.handleError(error)))
+      .subscribe({
+        next: (res) => {
+          this.firstFormGroup.reset();
+          this.type = 'login';
+          this.snack.onRegister();
+        },
+        error: (res) => {
+          this.serverMessage = res;
+        },
+      });
   }
 
   form1() {
@@ -111,6 +116,28 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.authService.signIn(this.firstFormGroup.value);
+    this.authService
+      .signIn(this.firstFormGroup.value)
+      .pipe(catchError((error) => this.handleError(error)))
+      .subscribe((res: any) => {
+        localStorage.setItem('token', res.token);
+        this.authService.getUserProfile().subscribe((res) => {
+          if (res.data.user.role === 'user') {
+            localStorage.setItem('role', 'user');
+            this.router.navigate(['products']);
+          } else if (res.data.user.role === 'admin') {
+            localStorage.setItem('role', 'admin');
+            this.router.navigate(['admin']);
+          }
+        });
+      });
+  }
+
+  handleError(error) {
+    let msg = '';
+    msg = error.errorMessage;
+    if (error.statusCode !== 401) return throwError(error);
+    this.snack.onSignInError(msg);
+    return throwError(error);
   }
 }
