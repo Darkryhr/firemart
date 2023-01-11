@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gab-portfolio": {
+      "hosting": {
+        "client": [
+          "angular-firemart"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gab-portfolio"
+  }
+}
